@@ -14,7 +14,6 @@
     <td><a href="/ai/list?username=<%= username %>&amp;sort=+user">User</a> (<a href="/ai/list?username=<%= username %>&amp;sort=+user%20-idOfUser">Submit</a>)</td>
     <td>Simulator Name</td>
     <td>Status</td>
-    <td><a href="/ai/list?username=<%= username %>&amp;sort=-ratio">Ratio</a></td>
     <td><a href="/ai/list?username=<%= username %>&amp;sort=-uploadDate">Upload Date</a></td>
     <td></td>
   </tr>
@@ -31,7 +30,6 @@
     <% } else { %>
       <td><span class="label label-default"><%= ai.status %></span></td>
     <% } %>
-    <td><%= Number(ai.ratio*100).toFixed(1) %>%</td>
     <td><%=: ai.uploadDate | formatDate %></td>
     <td><a href="/ai/<%= ai._id %>">(Detail)</a></td>
   </tr>
