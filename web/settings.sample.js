@@ -8,9 +8,9 @@ var dbi = {
 };
 var cookieSecret = "Your Cookie Secret, Random String";
 module.exports = {
-    websiteName: 'p2dv.in',
+    websiteName: 'Simulators',
     adminUsernames: [],
-    defaultPort: 3000,
+    defaultPort: 3389,
     secret: cookieSecret,
     staticCDN: '',
     //staticCDN: 'http://p2dv-in.qiniudn.com',
