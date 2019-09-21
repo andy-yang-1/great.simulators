@@ -22,7 +22,7 @@ sudo vim /etc/nginx/sites-enabled/default
 sudo service nginx reload
 
 # as p2dv at /home/p2dv
-git clone https://github.com/BreakVoid/sjtu.cool.git
+git clone https://github.com/spectrometerHBH/sjtu.cool.git
 cp sjtu.cool/core_server/const.sample.py sjtu.cool/core_server/const.py
 cp sjtu.cool/web/settings.sample.js sjtu.cool/web/settings.js
 vim sjtu.cool/core_server/const.py
@@ -70,7 +70,7 @@ sudo useradd -m -s /bin/bash p2dv
 sudo passwd p2dv
 
 # as p2dv at /home/p2dv
-git clone https://github.com/BreakVoid/sjtu.cool.git
+git clone https://github.com/spectrometerHBH/sjtu.cool.git
 git clone https://github.com/abcdabcd987/ACM-2015-AI-Server.git
 cp sjtu.cool/daemon/const.sample.py sjtu.cool/daemon/const.py
 vim sjtu.cool/daemon/const.py
