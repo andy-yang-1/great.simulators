@@ -13,7 +13,7 @@ sudo locale-gen zh_CN.UTF-8
 sudo dpkg-reconfigure tzdata
 
 curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
-sudo apt-get install build-essential git python-pip python3-pip python-dev nodejs screen mongodb-server vim nginx
+sudo apt-get install build-essential git python-pip python3-pip python-dev nodejs screen mongodb-server vim nginx npm
 sudo pip install tornado pymongo subprocess32
 sudo pip3 install tabulate requests
 sudo useradd -m -s /bin/bash p2dv
@@ -36,6 +36,7 @@ mkdir log
 # start web service
 screen -S web
 cd sjtu.cool/web/
+npm install express connect-mongo method-override ejs mongoose body-parser
 node app.js | tee ~/log/web-$(date +%Y-%m-%d_%H_%M_%S).log
 
 # start task dispatcher
