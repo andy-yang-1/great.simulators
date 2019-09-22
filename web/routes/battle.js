@@ -88,7 +88,7 @@ exports.showList = function(req, res) {
 
         Record.find({}).select({log:0,stderr0:0,stderr1:0}).sort({_id:-1}).skip(skip).limit(settings.battlePerPage).exec(function(err, doc) {
             var info =utility.prepareRenderMessage(req);
-            info.title = 'Battle List';
+            info.title = 'Simulation List';
             info.list = doc;
             info.page = page;
             info.totpage = Math.ceil(count / settings.battlePerPage);
