@@ -94,7 +94,7 @@ exports.showList = function(req, res) {
             info.username = username;
             //info.showRatingChart = page === 1 && username && showchart;
             info.showRatingChart = false;
-            info.title = 'AI List';
+            info.title = 'Simulator List';
             info.list = doc;
             return res.render('ai_list', info);
         });
