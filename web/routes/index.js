@@ -22,7 +22,7 @@ exports.setup = function(app) {
 
     app.get ('/ai/upload', ai.showUpload);
     app.post('/ai/upload', ai.execUpload);
-    app.get ('/ai/list', ai.showList);
+    // app.get ('/ai/list', ai.showList);
     app.get ('/ai/:id', ai.showStatus);
     // app.get ('/ai/:id/rating.json', ai.getRatingJSON);
 
