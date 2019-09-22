@@ -11,7 +11,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 exports.showUpload = function(req, res) {
     if (!req.session.user.isLogin) return res.redirect('/user/login');
     var info = utility.prepareRenderMessage(req);
-    info.title = "Upload AI";
+    info.title = "Upload Simulator Program";
     res.render('ai_upload', info);
 };
 
