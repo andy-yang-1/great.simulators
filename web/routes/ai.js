@@ -24,7 +24,7 @@ exports.execUpload = function(req, res) {
         });
         var info = utility.prepareRenderMessage(req);
         info.actionUrl = '/ai/upload';
-        info.title = "Upload AI";
+        info.title = "Upload Simulator Program";
         return res.render('ai_upload', info);
     };
 
