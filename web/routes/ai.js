@@ -60,7 +60,7 @@ exports.showStatus = function(req, res) {
         }
 
         var info = utility.prepareRenderMessage(req);
-        info.title = 'AI Status';
+        info.title = 'Simulator Status';
         info.ai = doc.ai;
         info.wins = doc.wins;
         info.lose = doc.lose;

@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 
 def check(k, states, start_state, halt_state):
@@ -7,7 +8,8 @@ def check(k, states, start_state, halt_state):
         not halt_state in states:
         exit(-1)
 
-with open("source.txt", "r") as f_source:
+
+with open(sys.argv[1], "r") as f_source:
     lines = f_source.readlines()
 
 # === set configurations of TM ===
