@@ -103,6 +103,7 @@ class Daemon:
 
         while not sig_quit:
             task = self._getTask()
+            print(task)
             if task['type'] == 'ai':
                 self._build(task['doc'])
             elif task['type'] == 'battle':
