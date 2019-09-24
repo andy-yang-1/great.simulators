@@ -27,6 +27,8 @@ class Daemon:
         try:
             r = requests.post(const.CORE_SERVER + '/task', data={'token': const.TOKEN}, timeout=const.REQUESTS_TIMEOUT)
             print(r.content)
+            print(loadJSON(r.content))
+            print(233)
             return loadJSON(r.content)
         except:
             return {'type': 'empty'}
