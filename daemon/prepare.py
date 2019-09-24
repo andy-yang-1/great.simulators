@@ -14,7 +14,7 @@ class Prepare:
         # Prepare
         self.tmpdir = tempfile.mkdtemp()
         source = path.join(self.tmpdir, 'source.txt')
-        with open(source, 'wb') as f:
+        with open(source, 'wb', newline='\n') as f:
             f.write(self.ai['sourceCode'].encode('utf-8'))
 
         # Compile
@@ -22,7 +22,9 @@ class Prepare:
         cflags = ['python', '../simulators/TuringMachine.py', source, '>', target]
         child = subprocess32.Popen(cflags, stdout=subprocess32.PIPE, stderr=subprocess32.PIPE)
         self.compile_stdout, self.compile_stderr = child.communicate()
-        print(self.compile_stderr)
+        self.compile_stdout = self.compile_stdout.decode('utf-8')
+        self.compile_stderr = self.compile_stderr.decode('uft-8')
+
         exitcode = child.returncode
         if exitcode != 0:
             return False
