@@ -9,7 +9,7 @@ import const
 
 class Prepare:
     def _compile(self):
-        print '      Compiling...'
+        print('      Compiling...')
 
         # Prepare
         self.tmpdir = tempfile.mkdtemp()
