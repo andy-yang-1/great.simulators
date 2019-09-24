@@ -20,6 +20,7 @@ def toJSON(data):
     return json.dumps(data, default=json_util.default)
 
 def loadJSON(data):
+    data = data.decode('utf-8')
     return json.loads(data, object_hook=json_util.object_hook)
 
 class Daemon:
@@ -27,8 +28,6 @@ class Daemon:
         try:
             r = requests.post(const.CORE_SERVER + '/task', data={'token': const.TOKEN}, timeout=const.REQUESTS_TIMEOUT)
             print(r.content)
-            print(loadJSON(r.content))
-            print(233)
             return loadJSON(r.content)
         except:
             return {'type': 'empty'}
