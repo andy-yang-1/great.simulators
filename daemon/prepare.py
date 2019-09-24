@@ -19,13 +19,13 @@ class Prepare:
 
         # Compile
         target = path.join(self.tmpdir, 'client')
-        cflags = ['python3', '../simulators/TuringMachine.py', source, '>', target]
+        cflags = ['python3', '../simulators/TuringMachine.py', source]
         child = subprocess32.Popen(cflags, stdout=subprocess32.PIPE, stderr=subprocess32.PIPE)
         self.compile_stdout, self.compile_stderr = child.communicate()
-
         self.compile_stdout = self.compile_stdout.decode('utf-8')
-        print(self.compile_stdout)
         self.compile_stderr = self.compile_stderr.decode('utf-8')
+        with open(target, 'w', newline='\n') as f:
+            f.write(self.compile_stdout)
 
         exitcode = child.returncode
         if exitcode != 0:
