@@ -132,7 +132,7 @@ class UploadHandler(tornado.web.RequestHandler):
                 output = open(abspath, 'wb')
                 output.write(upload['body'])
                 output.close()
-                os.chmod(abspath, 0755)
+                # os.chmod(abspath, 0755)
 
                 db.ais.update({'_id':doc['_id']}, { '$set': {
                     'status': status,
