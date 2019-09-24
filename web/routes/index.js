@@ -18,7 +18,7 @@ exports.setup = function(app) {
 	app.post('/user/register', user.execRegister);
 	app.get ('/user/logout', user.execLogout);
     app.get ('/user/list', user.showList);
-    app.get ('/user/:name/rating.json', user.getRatingJSON);
+    // app.get ('/user/:name/rating.json', user.getRatingJSON);
 
     app.get ('/ai/upload', ai.showUpload);
     app.post('/ai/upload', ai.execUpload);
