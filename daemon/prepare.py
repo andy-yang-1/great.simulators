@@ -22,7 +22,9 @@ class Prepare:
         cflags = ['python3', '../simulators/TuringMachine.py', source, '>', target]
         child = subprocess32.Popen(cflags, stdout=subprocess32.PIPE, stderr=subprocess32.PIPE)
         self.compile_stdout, self.compile_stderr = child.communicate()
+
         self.compile_stdout = self.compile_stdout.decode('utf-8')
+        print(self.compile_stdout)
         self.compile_stderr = self.compile_stderr.decode('utf-8')
 
         exitcode = child.returncode
