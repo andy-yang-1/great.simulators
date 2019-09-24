@@ -23,7 +23,7 @@ class Prepare:
         child = subprocess32.Popen(cflags, stdout=subprocess32.PIPE, stderr=subprocess32.PIPE)
         self.compile_stdout, self.compile_stderr = child.communicate()
         self.compile_stdout = self.compile_stdout.decode('utf-8')
-        self.compile_stderr = self.compile_stderr.decode('uft-8')
+        self.compile_stderr = self.compile_stderr.decode('utf-8')
 
         exitcode = child.returncode
         if exitcode != 0:
