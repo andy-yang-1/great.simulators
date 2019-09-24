@@ -21,7 +21,7 @@ class Battle:
         self.result = {}
 
     def _prepareBattle(self):
-        print '      Copying...'
+        print('      Copying...')
 
         self.tmpdir = tempfile.mkdtemp()
         # Copy judge
@@ -40,9 +40,9 @@ class Battle:
         path_ai1 = path.join(self.tmpdir, 'ai1')
 
         # Run the judge and let the judge run AIs
-        print '      Running Judge ... ',
+        print('      Running Judge ... ')
         judge = self._runProgram(['/usr/bin/python3', path_judge, path_ai0, path_ai1, 'p2dv'], stdin=subprocess32.PIPE, stderr=subprocess32.PIPE)
-        print 'Done'
+        print('Done')
 
         # Wait for judge
         while True:
