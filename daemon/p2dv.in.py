@@ -36,25 +36,25 @@ class Daemon:
                 r = requests.post(const.CORE_SERVER + '/find_one', data={'token': const.TOKEN, 'collection': collection, 'where': toJSON(where)}, timeout=const.REQUESTS_TIMEOUT)
                 return loadJSON(r.content)
             except:
-                print '_findOne fail.'
+                print('_findOne fail.')
                 time.sleep(random.random())
 
     def _getFile(self, ID, dlType, savepath):
         while True:
             try:
-                print 'Getting Files ... %s ... %s ... %s' % (ID, dlType, savepath)
+                print('Getting Files ... %s ... %s ... %s' % (ID, dlType, savepath))
                 r = requests.post(const.CORE_SERVER + '/download', data={'token': const.TOKEN, 'id': ID, 'type': dlType}, timeout=const.REQUESTS_TIMEOUT)
                 with open(savepath, 'wb') as f:
                     f.write(r.content)
                 return
             except:
-                print '_getFile fail. id: %s, type: %s' % (ID, dlType)
+                print('_getFile fail. id: %s, type: %s' % (ID, dlType))
                 time.sleep(random.random())
 
     def _uploadAI(self, ID, status, buildInfo, absPath=None):
         while True:
             try:
-                print '      Uploading AI ... %s ... %s ... %s' % (ID, status, absPath)
+                print('      Uploading AI ... %s ... %s ... %s' % (ID, status, absPath))
                 data = { 'info': buildInfo, 'status': status, 'token': const.TOKEN, 'id': ID }
                 if status == 'Available':
                     files = {'ai': open(absPath, 'rb')}
@@ -63,13 +63,13 @@ class Daemon:
                 r = requests.post(const.CORE_SERVER + '/upload', data=data, files=files, timeout=const.REQUESTS_TIMEOUT)
                 return r.json()
             except:
-                print '_uploadAI fail.'
+                print('_uploadAI fail.')
                 time.sleep(random.random())
 
     def _uploadText(self, absPath):
         while True:
             try:
-                print '      Uploading Text ... %s' % absPath
+                print('      Uploading Text ... %s' % absPath)
                 data = { 'token': const.TOKEN }
                 with open(absPath, 'rb') as f:
                     files = {'text': f}
@@ -78,7 +78,7 @@ class Daemon:
                 return res
             except Exception as e:
                 print(str(e))
-                print '_uploadText fail.'
+                print('_uploadText fail.')
                 time.sleep(random.random())
 
     def _updateDBs(self, data):
@@ -88,7 +88,7 @@ class Daemon:
                 return r.json()
             except Exception as e:
                 print(str(e))
-                print '_updateDBs fail.'
+                print('_updateDBs fail.')
                 time.sleep(random.random())
 
     def _updateDB(self, collection, where, value):
@@ -96,7 +96,7 @@ class Daemon:
 
     def Run(self):
         if os.path.isfile('/tmp/daemon.lock'):
-            print 'Lock exist'
+            print('Lock exist')
             return
         with open('/tmp/daemon.lock', 'w') as f:
             f.write(str(os.getpid()))
@@ -114,7 +114,7 @@ class Daemon:
 
     ###### Task 1: Unzip & Compile
     def _build(self, ai):
-        print '========== Found AI to be build: <', ai['user'].encode('utf-8'), ',', ai['idOfUser'], '>, upload date: ', ai['uploadDate']
+        print('========== Found AI to be build: <', ai['user'].encode('utf-8'), ',', ai['idOfUser'], '>, upload date: ', ai['uploadDate'])
         p = Prepare(ai).Run()
 
         ID = str(ai['_id'])
@@ -125,18 +125,18 @@ class Daemon:
             status = 'Available'
             info = p['info']
         self._uploadAI(ID, status, info, path.join(const.AI_SAVE_DIRECTORY, 'ai_' + ID))
-        print '      Done!'
+        print('      Done!')
 
 
     ###### Task 2: Battle
     def _ensureFile(self, ID, fileType, absPath):
         if not path.isfile(absPath):
             self._getFile(ID, fileType, absPath)
-            if fileType == 'ai':
-                os.chmod(absPath, 0755)
+            # if fileType == 'ai':
+            #   os.chmod(absPath, 0755)
 
     def _battle(self, battle):
-        print '========== Found a battle: <', battle['user0'].encode('utf-8'), ',', battle['idOfUser0'], '> vs <', battle['user1'].encode('utf-8'), ', ', battle['idOfUser1'], '>'
+        print('========== Found a battle: <', battle['user0'].encode('utf-8'), ',', battle['idOfUser0'], '> vs <', battle['user1'].encode('utf-8'), ', ', battle['idOfUser1'], '>')
 
         # Mark Running
         doc_rec = {'$set':{'status': 'Running', 'judger': const.SERVER_NAME}}
@@ -232,7 +232,7 @@ class Daemon:
             doc_contest_ai0['$inc']['ais.$.win'] = 1
             doc_contest_ai1['$inc']['ais.$.lose'] = 1
         else:
-            print "!!!!!!!! UNKNOWN RESULT !!!!!!!!"
+            print("!!!!!!!! UNKNOWN RESULT !!!!!!!!")
 
         # Update documents
         docs = { 'ais': [], 'users': [], 'records': [] }
@@ -249,7 +249,7 @@ class Daemon:
             docs['contests'].append({'where': {'_id':battle['contestId']}, 'value': {'$inc': {'running': -1, 'finished': 1}}})
         self._updateDBs(docs)
 
-        print "      Done!"
+        print("      Done!")
 
 
 sig_quit = False
