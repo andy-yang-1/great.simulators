@@ -14,7 +14,7 @@ class Prepare:
         # Prepare
         self.tmpdir = tempfile.mkdtemp()
         source = path.join(self.tmpdir, 'source.txt')
-        with open(source, 'wb', newline='\n') as f:
+        with open(source, 'w', newline='\n') as f:
             f.write(self.ai['sourceCode'].encode('utf-8'))
 
         # Compile
