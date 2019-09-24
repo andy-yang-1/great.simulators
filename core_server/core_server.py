@@ -29,6 +29,7 @@ def randomString(size=16, chars=string.ascii_uppercase + string.digits):
 
 class TaskHandler(tornado.web.RequestHandler):
     def post(self):
+        print ('Task calling...')
         token = self.get_body_argument('token', default='')
         if token != const.TOKEN:
             self.send_error()
