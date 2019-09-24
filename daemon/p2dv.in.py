@@ -95,11 +95,11 @@ class Daemon:
         return self._updateDBs({collection: [{'where': where, 'value': value}]})
 
     def Run(self):
-        if os.path.isfile('/tmp/daemon.lock'):
-            print('Lock exist')
-            return
-        with open('/tmp/daemon.lock', 'w') as f:
-            f.write(str(os.getpid()))
+        # if os.path.isfile('/tmp/daemon.lock'):
+        #   print('Lock exist')
+        #     return
+        # with open('/tmp/daemon.lock', 'w') as f:
+        #    f.write(str(os.getpid()))
 
         while not sig_quit:
             task = self._getTask()
@@ -110,7 +110,7 @@ class Daemon:
             else:
                 time.sleep(1)
 
-        os.remove('/tmp/daemon.lock')
+        # os.remove('/tmp/daemon.lock')
 
     ###### Task 1: Unzip & Compile
     def _build(self, ai):
