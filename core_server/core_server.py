@@ -29,7 +29,6 @@ def randomString(size=16, chars=string.ascii_uppercase + string.digits):
 
 class TaskHandler(tornado.web.RequestHandler):
     def post(self):
-        print ('Task calling...')
         token = self.get_body_argument('token', default='')
         if token != const.TOKEN:
             self.send_error()
@@ -41,6 +40,7 @@ class TaskHandler(tornado.web.RequestHandler):
 
         doc = db.ais.find_and_modify({'status':'Pending'}, update={'$set':{'status':'Building'}}, sort=[('_id',1)])
         if doc:
+            print ('Task Build Dispatched...')
             self.write(toJSON({ 'type': 'ai', 'doc': doc }))
             mutex.release()
             return
