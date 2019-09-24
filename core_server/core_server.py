@@ -45,7 +45,6 @@ class TaskHandler(tornado.web.RequestHandler):
             mutex.release()
             return
 
-
         running = set()
         for rec in db.records.find({'status':'Running'}):
             ids = (rec['ids'][0], rec['ids'][1])

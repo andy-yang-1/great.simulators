@@ -26,6 +26,7 @@ class Daemon:
     def _getTask(self):
         try:
             r = requests.post(const.CORE_SERVER + '/task', data={'token': const.TOKEN}, timeout=const.REQUESTS_TIMEOUT)
+            print(r)
             return loadJSON(r.content)
         except:
             return {'type': 'empty'}
