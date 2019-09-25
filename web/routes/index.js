@@ -26,13 +26,13 @@ exports.setup = function(app) {
     app.get ('/ai/:id', ai.showStatus);
     // app.get ('/ai/:id/rating.json', ai.getRatingJSON);
 
-    app.get ('/battle/list', battle.showList);
-    app.post('/battle/start', battle.execStart);
-    app.get ('/battle/:id-steps.json', battle.getSteps);
-    app.get ('/battle/:id.json', battle.getJSON);
-    app.get ('/battle/:id/:text.log', battle.getText);
-    app.get ('/battle/:id/rejudge', battle.execRejudge);
-    app.get ('/battle/:id', battle.showDemo);
+    // app.get ('/battle/list', battle.showList);
+    // app.post('/battle/start', battle.execStart);
+    // app.get ('/battle/:id-steps.json', battle.getSteps);
+    // app.get ('/battle/:id.json', battle.getJSON);
+    // app.get ('/battle/:id/:text.log', battle.getText);
+    // app.get ('/battle/:id/rejudge', battle.execRejudge);
+    // app.get ('/battle/:id', battle.showDemo);
 
     // app.get ('/contest/create', contest.showCreate);
     // app.post('/contest/create', contest.execCreate);
