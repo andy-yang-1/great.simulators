@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class="form-group">
+  <div id="explanation" class="form-group">
     <pre>Compile with:
     Syntax of Turing Machine Language
     </pre>
@@ -35,7 +35,8 @@
 <script>
   $(document).ready(function(){
     $("#simulatorSelect").change(function(){
-      alert("hahaha");
+      alert($(this).children('option:selected').val());
+      $("#explanation").html("<pre>Compile with:\nSyntax of Analytic Machine Languag\n</pre>")
     })
   })
 </script>
