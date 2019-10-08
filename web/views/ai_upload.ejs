@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="give-battle-label">Start a battle with <small><%= ai.name %> of <%= ai.user %> (<%= ai.idOfUser %>)</small>!</h4>
+        <h4 class="modal-title" id="give-battle-label">Start a battle with !</h4>
       </div>
       <form class="form-horizontal" role="form" action="/battle/start" method="post">
         <input type="hidden" value="<%= ai._id %>" name="ai1">
@@ -14,9 +14,7 @@
             <label for="myai" class="col-sm-2 control-label">My AI</label>
             <div class="col-sm-10">
               <select class="form-control" id="myai" name="ai0">
-              <% for (var i = 0; i < myAI.length; ++i) { %>
-                <option value="<%= myAI[i]._id %>">(Submit <%= myAI[i].idOfUser %>) <%= myAI[i].name %></option>
-              <% } %>
+                <option value="TuringMachine">TuringMachine</option>
               </select>
             </div>
           </div>
