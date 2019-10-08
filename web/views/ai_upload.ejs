@@ -35,8 +35,11 @@
 <script>
   $(document).ready(function(){
     $("#simulatorSelect").change(function(){
-      alert($(this).children('option:selected').val());
-      $("#explanation").html("<pre>Compile with:\nSyntax of Analytic Machine Languag\n</pre>")
+      str = $(this).children('option:selected').val();
+      if ("TuringMachine" == str)
+        $("#explanation").html("<pre>Compile with:\n\tSyntax of Turing Machine Languag\n</pre>");
+      else if ("AnalyticalMachine" == str)
+        $("#explanation").html("<pre>Compile with:\n\tSyntax of Analytic Machine Languag\n</pre>");      
     })
   })
 </script>
