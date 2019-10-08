@@ -19,7 +19,8 @@ class Prepare:
 
         # Compile
         target = path.join(self.tmpdir, 'client')
-        cflags = ['python3', '../simulators/TuringMachine.py', source]
+        simulatorPath = '../simulators/' + self.ai['name'] + '.py'
+        cflags = ['python3', simulatorPath, source]
         child = subprocess32.Popen(cflags, stdout=subprocess32.PIPE, stderr=subprocess32.PIPE)
         self.compile_stdout, self.compile_stderr = child.communicate()
         self.compile_stdout = self.compile_stdout.decode('utf-8')
