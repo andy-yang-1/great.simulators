@@ -32,9 +32,14 @@ exports.execUpload = function(req, res) {
         return fallback(['Empty source code']);
     }
 
+    if (!req.body.simulator) {
+        return fallback(['Empty simulator']);
+    }
+
     AI.getidOfUser(req.session.user.name, function(id) {
         var info = {
             user: req.session.user.name,
+            name: req.body.simulator,
             idOfUser: id,
             sourceCode: req.body.source_code
         }
