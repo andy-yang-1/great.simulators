@@ -20,9 +20,7 @@
   </div>
 
   <div id="explanation" class="form-group">
-    <pre>Compile with:
-    Syntax of Turing Machine Language
-    </pre>
+    Please choose a simulator
   </div>
 
   <div class="form-group">
@@ -37,9 +35,9 @@
     $("#simulatorSelect").change(function(){
       str = $(this).children('option:selected').val();
       if ("TuringMachine" == str)
-        $("#explanation").html("<pre>Compile with:\n\tSyntax of Turing Machine Languag\n</pre>");
+        $("#explanation").html("<pre>Compile with:\n\tSyntax of Turing Machine Language\n</pre>");
       else if ("AnalyticalMachine" == str)
-        $("#explanation").html("<pre>Compile with:\n\tSyntax of Analytic Machine Languag\n</pre>");      
+        $("#explanation").html("<pre>Compile with:\n\tSyntax of Analytic Machine Language\n</pre>");      
     })
   })
 </script>
