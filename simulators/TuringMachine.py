@@ -89,6 +89,7 @@ tapes = Tapes(k, input_text)
 now_state = start_state
 headers = [0 for i in range(k)]
 tapes.show()
+print(now_state, headers)
 
 while not now_state == halt_state:
     now_tape = " ".join([tapes.read(i, headers[i]) for i in range(k)])
@@ -109,9 +110,9 @@ while not now_state == halt_state:
         else:
             exit(-1)
         headers[i] = headers[i] + delta
-    
-    print(now_state, headers)
+
     tapes.show()
+    print(now_state, headers)
 
 '''
 example TM Language source file
