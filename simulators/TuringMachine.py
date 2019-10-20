@@ -85,6 +85,8 @@ class Tapes:
         for i in range(k):
             print("".join(list(reversed(self.n_tapes[i][1:])) + self.p_tapes[i]))
 
+print('---SimulationProcess---')
+
 tapes = Tapes(k, input_text)
 now_state = start_state
 headers = [0 for i in range(k)]
