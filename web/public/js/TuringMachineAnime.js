@@ -15,45 +15,45 @@ window.autoplaying = false;
 window.playing = false;
 
 $(".container-fluid>.dl-horizontal").after('  <table width="auto" border="0" style="margin: auto">\n' +
-  '    <thead>\n' +
-  '      <tr>\n' +
-  '        <th id = "State" width="50%" style="text-align: center; font-size: 40px">\n' +
-  '          State:\n' +
-  '        </th>\n' +
-  '        <th id = "Step" width="50%" style="text-align: center; font-size: 40px">\n' +
-  '          Step:\n' +
-  '        </th>\n' +
-  '      </tr>\n' +
-  '    </thead>\n' +
-  '    <tbody>\n' +
-  '      <tr>\n' +
-  '        <td colspan="2">\n' +
-  '          <canvas id="canvas" width=1000 height=350>\n' +
-  '          你的浏览器居然不支持Canvas？！赶快换一个吧！！\n' +
-  '          </canvas>\n' +
-  '        </td>\n' +
-  '      </tr>\n' +
-  '     </tbody>\n' +
-  '  </table>\n' +
-  '  <table width="auto" style="margin: auto">\n' +
-  '    <tbody>\n' +
-  '      <td style="width: 30%">\n' +
-  '        <div class="btn-group">\n' +
-  '          <button type="button" class="btn btn-secondary" onclick="settostep(0);"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>\n' +
-  '          <button type="button" id=\'play\' class="btn btn-secondary" onclick="autoplay();"><span id=\'icon\' class="glyphicon glyphicon-play" aria-hidden="true"></span></button>\n' +
-  '          <button type="button" class="btn btn-secondary" onclick="pauseit(); nextstepAnimation();"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>\n' +
-  '        </div>\n' +
-  '      </td>\n' +
-  '      <td>\n' +
-  '        <div class="progress" style="position: relative; width:600px;margin: auto;">\n' +
-  '          <div class="progress-bar" role="progressbar" aria-valuenow="60"\n' +
-  '               aria-valuemin="0" aria-valuemax="100" style="width: 0%;">\n' +
-  '            <span class="sr-only">40% 完成</span>\n' +
-  '          </div>\n' +
-  '        </div>\n' +
-  '      </td>\n' +
-  '    </tbody>\n' +
-  '  </table>\n');
+    '    <thead>\n' +
+    '      <tr>\n' +
+    '        <th id = "State" width="50%" style="text-align: center; font-size: 40px">\n' +
+    '          State:\n' +
+    '        </th>\n' +
+    '        <th id = "Step" width="50%" style="text-align: center; font-size: 40px">\n' +
+    '          Step:\n' +
+    '        </th>\n' +
+    '      </tr>\n' +
+    '    </thead>\n' +
+    '    <tbody>\n' +
+    '      <tr>\n' +
+    '        <td colspan="2">\n' +
+    '          <canvas id="canvas" width=1000 height=350>\n' +
+    '          你的浏览器居然不支持Canvas？！赶快换一个吧！！\n' +
+    '          </canvas>\n' +
+    '        </td>\n' +
+    '      </tr>\n' +
+    '     </tbody>\n' +
+    '  </table>\n' +
+    '  <table width="auto" style="margin: auto">\n' +
+    '    <tbody>\n' +
+    '      <td style="width: 30%">\n' +
+    '        <div class="btn-group">\n' +
+    '          <button type="button" class="btn btn-secondary" onclick="settostep(0);"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>\n' +
+    '          <button type="button" id=\'play\' class="btn btn-secondary" onclick="autoplay();"><span id=\'icon\' class="glyphicon glyphicon-play" aria-hidden="true"></span></button>\n' +
+    '          <button type="button" class="btn btn-secondary" onclick="pauseit(); nextstepAnimation();"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>\n' +
+    '        </div>\n' +
+    '      </td>\n' +
+    '      <td>\n' +
+    '        <div class="progress" style="position: relative; width:600px;margin: auto;">\n' +
+    '          <div class="progress-bar" role="progressbar" aria-valuenow="60"\n' +
+    '               aria-valuemin="0" aria-valuemax="100" style="width: 0%;">\n' +
+    '            <span class="sr-only">40% 完成</span>\n' +
+    '          </div>\n' +
+    '        </div>\n' +
+    '      </td>\n' +
+    '    </tbody>\n' +
+    '  </table>\n');
 
 
 const canvas = document.getElementById('canvas');
@@ -82,7 +82,7 @@ function drawtape(st, str, pt) {
   ctx.fillStyle = "#EBEBEB";
   ctx.fillRect(leftmost, h1, rightmost - leftmost, blockwidth);
 
-  var tl = tmpl - (pt - 1) * blockwidth;
+  var tl = tmpl - pt * blockwidth;
   while (tl > 0) tl -= blockwidth;
   while (tl < rightmost) {
     ctx.fillStyle = "#B2DFEE";
@@ -90,7 +90,7 @@ function drawtape(st, str, pt) {
     tl += blockwidth;
   }
 
-  tl = (leftmost + rightmost) / 2 - (pt - 1) * blockwidth;
+  tl = (leftmost + rightmost) / 2 - pt * blockwidth;
   var len = str.length; var i = 0;
   for (i = 0; i < len; ++i) {
     if (str.charAt(i) !== '*') {
@@ -129,7 +129,7 @@ while (tmp < processlen) {
       ++tmp;
     }
     log.push(str);
-    console.log(str);
+    // console.log(str);
   } else {
     ++tmp;
     ary = [];
@@ -144,60 +144,11 @@ while (tmp < processlen) {
       if (processinfo.charAt(tmp) === ']' || tmp >= processlen) break;
     }
     log.push(ary);
-    console.log(ary);
+    // console.log(ary);
   }
 }
 
 window.SimulationLog = log;
-
-/*
-log = ["1001",
-  "*",
-  "qCopy", [1, 1],
-  "1001",
-  "1",
-  "qCopy", [2, 2],
-  "1001",
-  "10",
-  "qCopy", [3, 3],
-  "1001",
-  "100",
-  "qCopy", [4, 4],
-  "1001",
-  "1001",
-  "qCopy", [5, 5],
-  "1001",
-  "1001",
-  "qReturn", [5, 4],
-  "1001",
-  "1001",
-  "qReturn", [5, 3],
-  "1001",
-  "1001",
-  "qReturn", [5, 2],
-  "1001",
-  "1001",
-  "qReturn", [5, 1],
-  "1001",
-  "1001",
-  "qReturn", [5, 0],
-  "1001",
-  "1001",
-  "qTest", [4, 1],
-  "1001",
-  "1001",
-  "qTest", [3, 2],
-  "1001",
-  "1001",
-  "qTest", [2, 3],
-  "1001",
-  "1001",
-  "qTest", [1, 4],
-  "1001",
-  "1001",
-  "qCorrect", [0, 5]
-];
-*/
 
 var stateary = []; var j, str, state, pointer, totstate = 0;
 for (i = 0; i < log.length; i += k + 2) {
@@ -216,9 +167,11 @@ for (i = 0; i < k; ++i) {
   pnow[i] = stateary[0].pointer[i];
 }
 drawstate(stateary[0].state, 0);
+setProcess(0);
 stepnow = 0;
 
 function settostep(kth) {
+  playing = false;
   autoplaying = false;
   $('#play').attr('onclick', 'autoplay();');
   $('#icon').attr('class', 'glyphicon glyphicon-play');
@@ -231,6 +184,7 @@ function settostep(kth) {
     pnow[j] = stateary[kth].pointer[j];
     drawtape(startline + j * interline, stateary[kth].str[j], pnow[j]);
   }
+  drawstate(stateary[kth].state, kth);
   setProcess(kth);
 }
 
@@ -241,6 +195,7 @@ function nextstepAnimation() {
   if (playing) return;
   var remainframe;
   function step() {
+    if (playing === false) return;
     if (remainframe - stepframes > 0) {
       remainframe -= stepframes;
       for (j = 0; j < k; ++j) {
@@ -248,7 +203,6 @@ function nextstepAnimation() {
         else if (pnow[j] < stateary[stepnow].pointer[j]) pnow[j] += stepframes;
         else if (pnow[j] > stepframes) pnow[j] -= stepframes;
         drawtape(startline + j * interline, stateary[stepnow].str[j], pnow[j]);
-        setProcess()
       }
       requestAnimationFrame(step);
       return;
@@ -259,7 +213,7 @@ function nextstepAnimation() {
     }
     playing = false;
     if (autoplaying)
-      setTimeout(function () {nextstepAnimation();}, 500);
+      setTimeout(function () {if (autoplaying) nextstepAnimation();}, 500);
   }
   if (stepnow >= totstate - 1) {
     endAnimation();
