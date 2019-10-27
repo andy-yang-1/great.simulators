@@ -3,7 +3,7 @@
 <h1>Simulation Status <small><%= ai.name %> of <%= ai.user %> (<%= ai.idOfUser %>)</small></h1>
 
 <dl class="dl-horizontal">
-  <dt>Code Name</dt><dd><%= ai.name %></dd>
+  <dt>Simulator Name</dt><dd><%= ai.name %></dd>
   <dt>User (Times of Submit)</dt><dd><%= ai.user %> (<%= ai.idOfUser %>)</dd>
   <dt>Submit Date</dt><dd><%=: ai.uploadDate | formatDate %></dd>
   <% if (ai.status === 'Pending') { %>
@@ -30,7 +30,9 @@
 <script src="<%= settings.staticCDN %>/js/c3.min.js"></script>
 <script src="<%= settings.staticCDN %>/js/rating.js?20141217"></script>
 <script src="<%= settings.staticCDN %>/google-code-prettify/prettify.js"></script>
+<% if (ai.name === "TuringMachine") { %>
 <script src="<%= settings.staticCDN %>/js/TuringMachineAnime.js"></script>
+<% } %>
 <script>
 ratingChart.setup("<%= ai._id %>/rating.json");
 prettyPrint();
