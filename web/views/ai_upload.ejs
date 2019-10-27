@@ -7,7 +7,7 @@
     <div class="col-sm-10" style="margin-top: 11px">
       <select id="simulatorSelect" style="color:black" name="simulator">
         <option value="TuringMachine">TuringMachine</option>
-        <option value="AnalyticalMachine">AnalyticalMachine</option>
+        <option value="AnalyticalEngine">AnalyticalEngine</option>
       </select>
     </div>
   </div>
@@ -36,8 +36,8 @@
       str = $(this).children('option:selected').val();
       if ("TuringMachine" == str)
         $("#explanation").html("<pre>Compile with:\n\tSyntax of Turing Machine Language\n</pre>");
-      else if ("AnalyticalMachine" == str)
-        $("#explanation").html("<pre>Compile with:\n\tSyntax of Analytic Machine Language\n</pre>");      
+      else if ("AnalyticalEngine" == str)
+        $("#explanation").html("<pre>Compile with:\n\tSyntax of Analytical Engine Language\n</pre>");
     })
   })
 </script>
