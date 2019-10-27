@@ -17,46 +17,52 @@
 
 <% if (ai.user === user.name || settings.adminUsernames.indexOf(user.name) > -1) { %>
   <% if (ai.name === "TuringMachine") { %>
-    <table width="auto" border="0" style="margin: auto">
-      <thead>
-      <tr>
-        <th id = "State" width="50%" style="text-align: center; font-size: 40px">
-          State:
-        </th>
-        <th id = "Step" width="50%" style="text-align: center; font-size: 40px">
-          Step:
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td colspan="2">
-          <canvas id="canvas" width=1000 height=350>
-            你的浏览器居然不支持Canvas？！赶快换一个吧！！
-          </canvas>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <table width="auto" style="margin: auto">
-      <tbody>
-      <td style="width: 30%">
-        <div class="btn-group">
-          <button type="button" class="btn btn-secondary" onclick="settostep(0);"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
-          <button type="button" id='play' class="btn btn-secondary" onclick="autoplay();"><span id='icon' class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-          <button type="button" class="btn btn-secondary" onclick="pauseit(); nextstepAnimation();"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
-        </div>
-      </td>
-      <td>
-        <div class="progress" style="position: relative; width:600px;margin: auto;">
-          <div class="progress-bar" role="progressbar" aria-valuenow="60"
-               aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-            <span class="sr-only">40% 完成</span>
-          </div>
-        </div>
-      </td>
-      </tbody>
-    </table>
+      <table width="auto" border="0" style="margin: auto">
+          <thead>
+          <tr>
+              <th id = "State" width="50%" style="text-align: center; font-size: 40px">
+                  State:
+              </th>
+              <th id = "Step" width="50%" style="text-align: center; font-size: 40px">
+                  Step:
+              </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+              <td colspan="2">
+                  <canvas id="canvas" width=1000 height=350>
+                      你的浏览器居然不支持Canvas？！赶快换一个吧！！
+                  </canvas>
+              </td>
+          </tr>
+          </tbody>
+      </table>
+      <table width="auto" style="margin: auto">
+          <tbody>
+          <td style="width: 30%">
+              <div class="btn-group">
+                  <button type="button" class="btn btn-secondary" onclick="settostep(0);"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+                  <button type="button" id='play' class="btn btn-secondary" onclick="autoplay();"><span id='icon' class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-secondary" onclick="pauseit(); nextstepAnimation();"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+              </div>
+          </td>
+          <td>
+              <canvas id="canvas2" width=600px height=6>
+                  你的浏览器居然不支持Canvas？！赶快换一个吧！！
+              </canvas>
+              <div class="progress" style="position: relative; width:600px; height:10px; margin: auto;">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                       aria-valuemin="0" aria-valuemax="100" style="width: 0%; transition: width 0s ease-in-out">
+                      <span class="sr-only">40% 完成</span>
+                  </div>
+              </div>
+              <canvas id="canvas3" width=600px height=6>
+                  你的浏览器居然不支持Canvas？！赶快换一个吧！！
+              </canvas>
+          </td>
+          </tbody>
+      </table>
   <% } %>
 
   <% if (ai.buildInfo) { %>

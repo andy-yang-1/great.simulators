@@ -13,6 +13,24 @@ window.pnow = [];
 window.stepnow = 0;
 window.autoplaying = false;
 window.playing = false;
+window.framesPerAction = 25;
+
+function abs(x) {
+    return x < 0 ? -x : x;
+}
+
+dx = [];
+for (i = 0; i < framesPerAction; ++i)
+    dx[i] = 1 / (1 + Math.sqrt(Math.sqrt(abs((i / 12) - 1))));
+
+for (i = 1; i < framesPerAction; ++i)
+    dx[i] = dx[i] + dx[i - 1];
+
+dxmax = dx[framesPerAction - 1];
+
+for (i = 0; i < framesPerAction; ++i)
+    dx[i] /= dxmax;
+
 /*
 $(".container-fluid>.dl-horizontal").after('  <table width="auto" border="0" style="margin: auto">\n' +
     '    <thead>\n' +
@@ -57,11 +75,14 @@ $(".container-fluid>.dl-horizontal").after('  <table width="auto" border="0" sty
 */
 
 const canvas = document.getElementById('canvas');
-/* 获得 2d 上下文对象 */
 const ctx = canvas.getContext('2d');
-
+const canvas2 = document.getElementById('canvas2');
+const ctx2 = canvas2.getContext('2d');
+const canvas3 = document.getElementById('canvas3');
+const ctx3 = canvas3.getContext('2d');
 
 $("#canvas").height = startline + k * interline;
+
 function TMState(str, state, pointer) {
     this.str = str;
     this.state = state;
@@ -160,6 +181,14 @@ for (i = 0; i < log.length; i += k + 2) {
     ++totstate;
 }
 
+endstate = totstate - 1;
+
+coor = [];
+for (i = 0; i < totstate; ++i)
+    coor[i] = i * 600 / (totstate - 1);
+coor[0] += 1;
+coor[totstate - 1] -= 1;
+
 //init
 canvas.setAttribute("height", (startline+(k)*interline).toString());
 for (i = 0; i < k; ++i) {
@@ -169,6 +198,22 @@ for (i = 0; i < k; ++i) {
 drawstate(stateary[0].state, 0);
 setProcess(0);
 stepnow = 0;
+
+window.canvaslinewidth = 1;
+
+for (i = 0; i < totstate; ++i) {
+    ctx3.moveTo(coor[i], 0);
+    ctx3.lineTo(coor[i], canvas3.height);
+    ctx3.strokeStyle = "black";
+    ctx3.lineWidth = canvaslinewidth;
+    ctx3.stroke();
+}
+
+ctx2.moveTo(coor[endstate], 0);
+ctx2.lineTo(coor[endstate], canvas3.height);
+ctx2.strokeStyle = "red";
+ctx2.lineWidth = canvaslinewidth;
+ctx2.stroke();
 
 function settostep(kth) {
     playing = false;
@@ -196,14 +241,15 @@ function nextstepAnimation() {
     var remainframe;
     function step() {
         if (playing === false) return;
-        if (remainframe - stepframes > 0) {
-            remainframe -= stepframes;
+        if (remainframe < 25) {
             for (j = 0; j < k; ++j) {
-                if (Math.abs(pnow[j] - stateary[stepnow].pointer[j]) < stepframes) pnow[j] = stateary[stepnow].pointer[j];
-                else if (pnow[j] < stateary[stepnow].pointer[j]) pnow[j] += stepframes;
-                else if (pnow[j] > stepframes) pnow[j] -= stepframes;
+                if(stateary[stepnow - 1].pointer[j] === stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j];
+                else if (stateary[stepnow - 1].pointer[j] < stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j] + dx[remainframe];
+                else if (stateary[stepnow - 1].pointer[j] > stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j] - dx[remainframe];
                 drawtape(startline + j * interline, stateary[stepnow].str[j], pnow[j]);
             }
+            setProcess(stepnow - 1 + dx[remainframe]);
+            remainframe++;
             requestAnimationFrame(step);
             return;
         }
@@ -211,20 +257,20 @@ function nextstepAnimation() {
             pnow[j] = stateary[stepnow].pointer[j];
             drawtape(startline + j * interline, stateary[stepnow].str[j], pnow[j]);
         }
+        setProcess(stepnow);
         playing = false;
         if (autoplaying)
             setTimeout(function () {if (autoplaying) nextstepAnimation();}, 500);
     }
-    if (stepnow >= totstate - 1) {
+    if (stepnow >= endstate) {
         endAnimation();
         return;
     }
     ++stepnow;
     drawstate(stateary[stepnow].state, stepnow);
-    remainframe = 1;
+    remainframe = 0;
     playing = true;
     requestAnimationFrame(step);
-    setProcess(stepnow);
 }
 
 function autoplay() {
