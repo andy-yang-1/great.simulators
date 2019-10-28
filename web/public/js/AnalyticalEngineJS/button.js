@@ -48,7 +48,7 @@ function jumpto() {
         window.alert("错误输入！");
         return;
     }
-    curStep -= input;
+    curStep -= input + 1;
     if (curStep < 0) curStep = 0;
     if (curStep <= data_set.size){
         get_previous_output(curStep);
