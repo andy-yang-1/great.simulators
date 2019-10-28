@@ -61,10 +61,13 @@ const per_pixw = width / num_w;
 const blank_rate_reg = 0.075;
 const umargin_rate = 0.13;
 const dmargin_rate = 0.06;
+const color_canvas = "#e5f9ff";
+const color_mill = "#e6e6e6";
+const color_store = "#e6e6e6";
   
   
 function draw_canvas() {
-    draw_filled_rect(0, 0, width, height, "#e5f9ff");
+    draw_filled_rect(0, 0, width, height, color_canvas);
 }
   
   
@@ -79,7 +82,7 @@ function draw_store(words = true) {
     var wi = l_end - l_start;
 
     if (words) draw_text((l_start + l_end) / 2, umargin_rate * height * 0.8, "store", font="28px Consolas");
-    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, "#e6e6e6");
+    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, color_store);
     draw_rect(l_start - per_pixw * blank_rate_reg * 2, height * umargin_rate, l_end + blank_rate_reg * per_pixw * 2, height * (1 - dmargin_rate));
 
     var y1_reg = hi * umargin_rate_store + height * umargin_rate;
@@ -105,7 +108,7 @@ function draw_store_with_judgements() {
     var wi = l_end - l_start;
 
     draw_text((l_start + l_end) / 2, umargin_rate * height * 0.8, "store", font="28px Consolas");
-    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, "#e6e6e6");
+    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, color_store);
     draw_rect(l_start - per_pixw * blank_rate_reg * 2, height * umargin_rate, l_end + blank_rate_reg * per_pixw * 2, height * (1 - dmargin_rate));
 
     var y1_reg = hi * umargin_rate_store + height * umargin_rate;
@@ -133,7 +136,7 @@ function draw_mill(words = true) {
     var wi = l_end - l_start;
 
     if (words) draw_text((l_start + l_end) / 2, umargin_rate * height * 0.8, "mill", font="28px Consolas");
-    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, "#e6e6e6");
+    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, color_mill);
     draw_rect(l_start - per_pixw * blank_rate_reg * 2, height * umargin_rate, l_end + blank_rate_reg * per_pixw * 2, height * (1 - dmargin_rate));
 
     var y1_reg = hi * umargin_rate_store + height * umargin_rate;
@@ -172,7 +175,7 @@ function draw_mill_with_judgements() {
     var wi = l_end - l_start;
 
     draw_text((l_start + l_end) / 2, umargin_rate * height * 0.8, "mill", font="28px Consolas");
-    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, "#e6e6e6");
+    draw_filled_rect(l_start - per_pixw * blank_rate_reg * 2, umargin_rate * height, l_end + blank_rate_reg * per_pixw * 2, (1 - dmargin_rate) * height, color_mill);
     draw_rect(l_start - per_pixw * blank_rate_reg * 2, height * umargin_rate, l_end + blank_rate_reg * per_pixw * 2, height * (1 - dmargin_rate));
 
     var y1_reg = hi * umargin_rate_store + height * umargin_rate;

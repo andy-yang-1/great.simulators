@@ -103,9 +103,10 @@ var output_added = "";
 
 function get_previous_output(curStep){
     t = document.getElementById("text");
-    t.innerHTML = "Output:<br>"
+    t.innerHTML = "&nbspOutput:<br>"
     for (var i = 0; i < curStep; ++i) {
         if (data_set.content[i].output) {
+            t.innerHTML += "&nbsp&nbsp&nbsp"
             t.innerHTML += data_set[i].content.output;
             t.innerHTML += "<br>";
         }
@@ -117,6 +118,7 @@ function get_previous_output(curStep){
 function get_output() {
     t = document.getElementById("text");
     if (output_added) {
+        t.innerHTML += "&nbsp&nbsp&nbsp";
         t.innerHTML += output_added;
         t.innerHTML += "<br>";
     }

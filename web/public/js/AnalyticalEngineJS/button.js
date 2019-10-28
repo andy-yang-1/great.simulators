@@ -22,7 +22,7 @@ function stopit() {
     pauseit();
     curStep = 0;
     t = document.getElementById("text");
-    t.innerHTML = "Output:<br>";
+    t.innerHTML = "&nbspOutput:<br>";
     get_data();
     get_output();
     draw_canvas();
