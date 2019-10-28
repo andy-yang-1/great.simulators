@@ -33,7 +33,8 @@ var touchendHander = function(event){
 
 function LongPressPlay(){
     pauseit();
-    var input = prompt("请输入每秒运行几步 (1 ~ 30)", 1); 
+    var input = prompt("请输入每秒运行几步 (1 ~ 30)", 1);
+    if (!input) return;
     input = parseInt(input);
     if (input < 1 || input > 30) {
         window.alert("错误输入！");
