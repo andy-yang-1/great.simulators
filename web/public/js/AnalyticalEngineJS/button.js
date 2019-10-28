@@ -1,21 +1,23 @@
 var timer=null;
 var btn_play = document.getElementById("play");
+var btn_stop = document.getElementById("stop");
 var btn_prev = document.getElementById("prev");
 var btn_next = document.getElementById("next");
 
 
 var touchstartHanderPlay = function(event){
-    // event.preventDefault();
     timer=setTimeout(LongPressPlay,500);
 }
 
+var touchstartHanderStop = function(event){
+    timer=setTimeout(LongPressStop,500);
+}
+
 var touchstartHanderNext = function(event){
-    // event.preventDefault();
     timer=setTimeout(LongPressNext,500);
 }
 
 var touchstartHanderPrev = function(event){
-    // event.preventDefault();
     timer=setTimeout(LongPressPrev,500);
 }
 
@@ -33,7 +35,7 @@ var touchendHander = function(event){
 
 function LongPressPlay(){
     pauseit();
-    var input = prompt("请输入每秒运行几步 (1 ~ 30)", 1);
+    var input = prompt("请输入每秒运行几步 (1 ~ 30)", 1); 
     if (!input) return;
     input = parseInt(input);
     if (input < 1 || input > 30) {
@@ -45,6 +47,15 @@ function LongPressPlay(){
         interval_red = parseInt(interval * 0.3);
         
     }
+}
+
+function LongPressStop(){
+    pauseit();
+    msg = "CurrentStep / Total : "
+    msg += (curStep - 1).toString();
+    msg += " / ";
+    msg += data_set.size.toString();
+    window.alert(msg);
 }
 
 function LongPressNext(){
@@ -95,6 +106,9 @@ function LongPressPrev(){
 btn_play.addEventListener("touchstart", touchstartHanderPlay,false);
 btn_play.addEventListener("touchmove", touchmoveHander,false);
 btn_play.addEventListener("touchend", touchendHander,false);
+btn_stop.addEventListener("touchstart", touchstartHanderStop,false);
+btn_stop.addEventListener("touchmove", touchmoveHander,false);
+btn_stop.addEventListener("touchend", touchendHander,false);
 btn_next.addEventListener("touchstart", touchstartHanderNext,false);
 btn_next.addEventListener("touchmove", touchmoveHander,false);
 btn_next.addEventListener("touchend", touchendHander,false);
@@ -104,15 +118,17 @@ btn_prev.addEventListener("touchend", touchendHander,false);
 
 // PC端
 btn_play.addEventListener("mousedown", touchstartHanderPlay, false);
-btn_play.addEventListener("mousemove", touchmoveHander, false);
+//btn_play.addEventListener("mousemove", touchmoveHander, false);
 btn_play.addEventListener("mouseup", touchendHander, false);
+btn_stop.addEventListener("mousedown", touchstartHanderStop, false);
+//btn_stop.addEventListener("mousemove", touchmoveHander, false);
+btn_stop.addEventListener("mouseup", touchendHander, false);
 btn_next.addEventListener("mousedown", touchstartHanderNext, false);
-btn_next.addEventListener("mousemove", touchmoveHander, false);
+//btn_next.addEventListener("mousemove", touchmoveHander, false);
 btn_next.addEventListener("mouseup", touchendHander, false);
 btn_prev.addEventListener("mousedown", touchstartHanderPrev, false);
-btn_prev.addEventListener("mousemove", touchmoveHander, false);
+//btn_prev.addEventListener("mousemove", touchmoveHander, false);
 btn_prev.addEventListener("mouseup", touchendHander, false);
-
 
 
 
@@ -135,14 +151,16 @@ function pauseit() {
 
 function stopit() {
     pauseit();
-    curStep = 0;
-    t = document.getElementById("text");
-    t.innerHTML = "&nbspOutput:<br>";
-    get_data();
-    get_output();
-    draw_canvas();
-    draw_store();
-    draw_mill();
+    if (confirm("确定要回到初始状态吗？")){
+        curStep = 0;
+        t = document.getElementById("text");
+        t.innerHTML = "&nbspOutput:<br>";
+        get_data();
+        get_output();
+        draw_canvas();
+        draw_store();
+        draw_mill();
+    }
 }
 
 function nextstep() {
