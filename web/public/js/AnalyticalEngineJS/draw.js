@@ -61,8 +61,8 @@ const per_pixw = width / num_w;
 const blank_rate_reg = 0.075;
 const umargin_rate = 0.13;
 const dmargin_rate = 0.06;
-const color_board = "#d3d3d3";
-const color_mill = "#e0f4fa";
+const color_board = "#cfcfcf";
+const color_mill = "#e5faff";
 const color_store = color_mill;
   
   
