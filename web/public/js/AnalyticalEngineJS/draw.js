@@ -61,13 +61,13 @@ const per_pixw = width / num_w;
 const blank_rate_reg = 0.075;
 const umargin_rate = 0.13;
 const dmargin_rate = 0.06;
-const color_canvas = "#e5f9ff";
-const color_mill = "#e6e6e6";
-const color_store = "#e6e6e6";
+const color_board = "#d3d3d3";
+const color_mill = "#e0f4fa";
+const color_store = color_mill;
   
   
 function draw_canvas() {
-    draw_filled_rect(0, 0, width, height, color_canvas);
+    draw_filled_rect(0, 0, width, height, color_board);
 }
   
   
