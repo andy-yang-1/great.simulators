@@ -292,3 +292,13 @@ function pauseit() {
 function setProcess(kth) {
     $('.progress-bar').css("width", (kth * 100 / (totstate - 1)).toString().concat("%"));
 }
+
+function clickslider(event) {
+    var e = event || window.event;
+    x = (e.screenX - document.getElementById('slider').offsetLeft);
+    for (i = 0; i < totstate - 1; ++i)
+        if (coor[i] <= x && x <= coor[i + 1]) {
+            if (x - coor[i] < coor[i + 1] - x) settostep(i);
+            else settostep(i + 1);
+        }
+}
