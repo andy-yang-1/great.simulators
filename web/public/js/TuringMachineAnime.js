@@ -226,6 +226,7 @@ function settostep(kth) {
 }
 
 function endAnimation() {
+    pauseit();
 }
 
 function nextstepAnimation() {
