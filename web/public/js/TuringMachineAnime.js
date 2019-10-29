@@ -76,8 +76,6 @@ $(".container-fluid>.dl-horizontal").after('  <table width="auto" border="0" sty
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const canvas2 = document.getElementById('canvas2');
-const ctx2 = canvas2.getContext('2d');
 const canvas3 = document.getElementById('canvas3');
 const ctx3 = canvas3.getContext('2d');
 
@@ -209,12 +207,6 @@ for (i = 0; i < totstate; ++i) {
     ctx3.stroke();
 }
 
-ctx2.moveTo(coor[endstate], 0);
-ctx2.lineTo(coor[endstate], canvas3.height);
-ctx2.strokeStyle = "red";
-ctx2.lineWidth = canvaslinewidth;
-ctx2.stroke();
-
 function settostep(kth) {
     playing = false;
     autoplaying = false;
@@ -293,12 +285,11 @@ function setProcess(kth) {
     $('.progress-bar').css("width", (kth * 100 / (totstate - 1)).toString().concat("%"));
 }
 
+sliderele = document.getElementById('slider');
+
 function clickslider(event) {
     var e = event || window.event;
-    x = (e.screenX - document.getElementById('slider').offsetLeft);
-    for (i = 0; i < totstate - 1; ++i)
-        if (coor[i] <= x && x <= coor[i + 1]) {
-            if (x - coor[i] < coor[i + 1] - x) settostep(i);
-            else settostep(i + 1);
-        }
+    x = (e.screenX - sliderele.offsetLeft) / sliderele.clientWidth * (totstate - 1);
+    if (x - Math.floor(x) < 0.5) settostep(Math.floor(x));
+    else settostep(Math.floor(x) + 1);
 }
