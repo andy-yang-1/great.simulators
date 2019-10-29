@@ -6,6 +6,7 @@ const digits = 8;
 //Initializing data_set
 var data = new Object();
 var data_set = new Object();
+var code = new Array();
 data_set.size = 0;
 data_set.content = new Array();
 data_set.content[0] = new Object();
@@ -24,6 +25,8 @@ for (var i = 0; i < 5 + store_size; ++i) {
     }
 }
 data_set.content[0].output = "";
+data_set.content[0].codenum = 0;
+code[0] = "CODE DISPLAY"
 
 
 function cal_digit(num) {
@@ -38,12 +41,31 @@ function cal_digit(num) {
 function readin() {
     input_length = buildinfo.length;
     read_length = 0;
+    
+    // Get code.
+    code_cnt = 0;
+    while (1) {
+        var start = read_length;
+        var sub = buildinfo.slice(start, input_length);
+        var end = sub.search("@");
+        if (end == -1) break;
+        sub = sub.slice(0, end);
+        code[++code_cnt] = sub;
+        read_length = start + end + 2;
+    }
+
     while (read_length < input_length) {
         data_set.size++;
 
+        var start = read_length;
+        var sub = buildinfo.slice(start, end);
+        if (sub.search("Line") == -1) {
+            
+        }
+
         // Get the substring for information of Step(data_set.size).
-        var start = read_length + 10 + cal_digit(data_set.size);
-        var sub = buildinfo.slice(start, input_length);
+        start = read_length + 10 + cal_digit(data_set.size);
+        sub = buildinfo.slice(start, input_length);
         var end = sub.search("Step");
         var run_time_error = false;
         if (end == -1) {
@@ -79,11 +101,12 @@ function readin() {
 
         var numbers = sub.match(/[+-]?\d+(?:\.\d+)?/g);
         for (var i = 0; i < numbers.length - 1; ++i) numbers[i] = parseInt(numbers[i]);
-        for (var i = 0; i < numbers[0]; ++i) {
-            data_cur.change.regs[numbers[2 * i + 1]] = true;
-            var tmp = numbers[2 * i + 2];
+        data_cur.codenum = numbers[0];
+        for (var i = 0; i < numbers[1]; ++i) {
+            data_cur.change.regs[numbers[2 * i + 2]] = true;
+            var tmp = numbers[2 * i + 3];
             for (var j = digits - 1; j >= 0; --j) {
-                data_cur.digits[numbers[2 * i + 1]][j] = tmp % 10;
+                data_cur.digits[numbers[2 * i + 2]][j] = tmp % 10;
                 tmp = parseInt(tmp / 10);
             }
         }
@@ -115,7 +138,7 @@ function get_previous_output(curStep){
 }
 
 
-function get_output() {
+function get_output(only_text = false) {
     t = document.getElementById("text");
     if (output_added) {
         t.innerHTML += "&nbsp&nbsp&nbsp";
@@ -123,4 +146,9 @@ function get_output() {
         t.innerHTML += "<br>";
     }
     output_added = "";
+
+    if (!only_text) {
+        t = document.getElementById("sentence");
+        t.innerHTML = code[data.codenum];
+    }
 }
