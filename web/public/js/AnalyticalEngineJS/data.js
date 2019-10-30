@@ -54,26 +54,48 @@ function readin() {
         read_length = start + end + 2;
     }
 
+    var runtimeerror = false;
+    if (buildinfo.search("Line") != -1) runtimeerror = true;
+
     while (read_length < input_length) {
         data_set.size++;
 
         var start = read_length;
-        var sub = buildinfo.slice(start, end);
-        if (sub.search("Line") == -1) {
+        var sub = buildinfo.slice(start, start + 5);
+        if (sub.search("Line") == 0) {
+            sub = buildinfo.slice(start, buildinfo.length);
             
+            data_set.content[data_set.size] = new Object();
+            var data_cur = data_set.content[data_set.size];
+            data_cur.change = new Object();
+
+            data_cur.op = "~";
+            data_cur.change.op = true;
+            data_cur.runup = "~";
+            data_cur.change.runup = true;
+            data_cur.digits = new Array();
+            data_cur.change.regs = new Array();
+
+            for (var i = 0; i < 5 + store_size; ++i) {
+                data_cur.digits[i] = new Array();
+                data_cur.change.regs[i] = true;
+                for (var j = 0; j < digits; ++j) {
+                    data_cur.digits[i][j] = "*";
+                }
+            }
+            numbers = sub.match(/[+-]?\d+(?:\.\d+)?/g);
+            data_cur.codenum = parseInt(numbers[0]);
+            data_cur.output = sub;
+            return;
         }
 
         // Get the substring for information of Step(data_set.size).
         start = read_length + 10 + cal_digit(data_set.size);
         sub = buildinfo.slice(start, input_length);
         var end = sub.search("Step");
-        var run_time_error = false;
         if (end == -1) {
-            end = sub.search("Line");
-            if (end == -1) end = input_length;
-            else {
-                run_time_error = true;
-            }
+            if (runtimeerror) end = sub.search("Line");
+            else end = input_length;
         }
         sub = sub.slice(0, end);
         read_length = start + end;
@@ -114,6 +136,7 @@ function readin() {
         data_cur.output = (numbers[numbers.length - 1] == "-1") ? "" : numbers[numbers.length - 1];
     }
 }
+
 
 
 function get_data(){
