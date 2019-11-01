@@ -58,7 +58,7 @@ exports.setup = function(app) {
     //app.get('/diff_engine/diff2', showDiff2);
     //app.get('/diff_engine/diff3', showDiff3);
 
-    //app.get('/enigma', showEnigma);
+    app.get('/enigma', showEnigma);
 
     // app.get ('/battle/list', battle.showList);
     // app.post('/battle/start', battle.execStart);
