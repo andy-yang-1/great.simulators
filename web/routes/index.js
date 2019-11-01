@@ -9,6 +9,11 @@ function showIndex(req, res) {
     res.render('index', info);
 };
 
+function showDiff1(req, res)
+{
+    res.render('diff1');
+};
+
 exports.setup = function(app) {
 	app.get('/', showIndex);
 
@@ -23,8 +28,11 @@ exports.setup = function(app) {
     app.get ('/ai/upload', ai.showUpload);
     app.post('/ai/upload', ai.execUpload);
     app.get ('/ai/list', ai.showList);
-    app.get ('/ai/:id', ai.showStatus);
+    app.get('/ai/:id', ai.showStatus);
     // app.get ('/ai/:id/rating.json', ai.getRatingJSON);
+
+    app.get('/diff_egine/diff1', showDiff1);
+
 
     // app.get ('/battle/list', battle.showList);
     // app.post('/battle/start', battle.execStart);
