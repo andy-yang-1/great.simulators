@@ -30,6 +30,19 @@
             <li><a href="/user/list"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> User</a></li>
             <li><a href="/ai/upload"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</a></li>
           </ul>
+		  <div class="nav navbar-nav">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Demo Machines<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Difference Engine</a></li>
+				  <li><a href="#">Enigma Machine</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+
           <div class="nav navbar-nav navbar-right">
             <ul class="nav navbar-nav">
             <% if (user.isLogin) { %>
