@@ -11,7 +11,8 @@ function showIndex(req, res) {
 
 function showDiff1(req, res)
 {
-    res.render('diff1');
+    var info = utility.prepareRenderMessage(req);
+    res.render('diff1', info);
 };
 
 exports.setup = function(app) {
