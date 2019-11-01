@@ -9,13 +9,13 @@ function showIndex(req, res) {
     res.render('index', info);
 };
 
-/*function showDiff1(req, res)
+function showDiff1(req, res)
 {
     var info = utility.prepareRenderMessage(req);
     res.render('diff1', info);
 };
 
-function showDiff2(req, res)
+/*function showDiff2(req, res)
 {
     var info = utility.prepareRenderMessage(req);
     res.render('diff2', info);
@@ -54,7 +54,7 @@ exports.setup = function(app) {
     app.get('/ai/:id', ai.showStatus);
     // app.get ('/ai/:id/rating.json', ai.getRatingJSON);
 
-    //app.get('/diff_engine/diff1', showDiff1);
+    app.get('/diff_engine/diff1', showDiff1);
     //app.get('/diff_engine/diff2', showDiff2);
     //app.get('/diff_engine/diff3', showDiff3);
 
