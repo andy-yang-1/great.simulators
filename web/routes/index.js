@@ -38,7 +38,7 @@ function showEnigma(req, res)
 };*/
 
 exports.setup = function(app) {
-    app.get('/', showDiff1);
+    app.get('/', showIndex);
 
 	app.get ('/user/login', user.showLogin);
 	app.post('/user/login', user.execLogin);
