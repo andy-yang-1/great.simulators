@@ -27,7 +27,7 @@ function showDiff3(req, res)
     //res.render('index', info);
     var info = utility.prepareRenderMessage(req);
     res.render('diff3', info);
-};
+};*/
 
 function showEnigma(req, res)
 {
@@ -35,7 +35,7 @@ function showEnigma(req, res)
     //res.render('index', info);
     var info = utility.prepareRenderMessage(req);
     res.render('enigma', info);
-};*/
+};
 
 exports.setup = function(app) {
     app.get('/', showIndex);
