@@ -11,14 +11,34 @@ function showIndex(req, res) {
 
 function showDiff1(req, res)
 {
-    //var info = utility.prepareRenderMessage(req);
-    //res.render('index', info);
     var info = utility.prepareRenderMessage(req);
     res.render('diff1', info);
 };
 
+function showDiff2(req, res)
+{
+    var info = utility.prepareRenderMessage(req);
+    res.render('diff2', info);
+};
+
+function showDiff3(req, res)
+{
+    //var info = utility.prepareRenderMessage(req);
+    //res.render('index', info);
+    var info = utility.prepareRenderMessage(req);
+    res.render('diff3', info);
+};
+
+function showEnigma(req, res)
+{
+    //var info = utility.prepareRenderMessage(req);
+    //res.render('index', info);
+    var info = utility.prepareRenderMessage(req);
+    res.render('enigma', info);
+};
+
 exports.setup = function(app) {
-    app.get('/', showDiff1);
+    app.get('/', showIndex);
 
 	app.get ('/user/login', user.showLogin);
 	app.post('/user/login', user.execLogin);
@@ -35,7 +55,10 @@ exports.setup = function(app) {
     // app.get ('/ai/:id/rating.json', ai.getRatingJSON);
 
     app.get('/diff_engine/diff1', showDiff1);
+    app.get('/diff_engine/diff2', showDiff2);
+    app.get('/diff_engine/diff3', showDiff3);
 
+    app.get('/enigma', showEnigma);
 
     // app.get ('/battle/list', battle.showList);
     // app.post('/battle/start', battle.execStart);
