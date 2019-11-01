@@ -12,7 +12,9 @@ function showIndex(req, res) {
 function showDiff1(req, res)
 {
     var info = utility.prepareRenderMessage(req);
-    res.render('diff1', info);
+    res.render('index', info);
+    //var info = utility.prepareRenderMessage(req);
+    //res.render('diff1', info);
 };
 
 exports.setup = function(app) {
@@ -32,7 +34,7 @@ exports.setup = function(app) {
     app.get('/ai/:id', ai.showStatus);
     // app.get ('/ai/:id/rating.json', ai.getRatingJSON);
 
-    app.get('/diff_egine/diff1', showDiff1);
+    app.get('/diff_engine/diff1', showDiff1);
 
 
     // app.get ('/battle/list', battle.showList);
