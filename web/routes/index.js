@@ -11,14 +11,14 @@ function showIndex(req, res) {
 
 function showDiff1(req, res)
 {
-    var info = utility.prepareRenderMessage(req);
-    res.render('index', info);
     //var info = utility.prepareRenderMessage(req);
-    //res.render('diff1', info);
+    //res.render('index', info);
+    var info = utility.prepareRenderMessage(req);
+    res.render('diff1', info);
 };
 
 exports.setup = function(app) {
-	app.get('/', showIndex);
+    app.get('/', showDiff1);
 
 	app.get ('/user/login', user.showLogin);
 	app.post('/user/login', user.execLogin);
