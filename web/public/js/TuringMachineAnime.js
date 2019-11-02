@@ -1,5 +1,5 @@
-
-window.buildinfo = document.querySelector("div.container-fluid pre").innerHTML;
+window.buildinfo = document.getElementById("buildinfo").innerHTML;
+//window.buildinfo = document.querySelector("div.container-fluid pre").innerHTML;
 window.k = Number(buildinfo.match(/[\d]+\n/));
 processinfo = buildinfo.substr(buildinfo.search(/---SimulationProcess---/) + "---SimulationProcess---".length);
 window.blockwidth = 50;
