@@ -404,8 +404,8 @@ window.onkeydown = function(e){
 	var i = e.keyCode;
 	if(i >= 65 && i <= 65 + 25) 
 		keyboardMouseDown(i-65);
-	else if(i == 8){
-		clearText();
+	else if(i == 8){  //backspace
+	  	onBackspace();
 	}
 	else if(i==32){
 		addSpace();
@@ -484,7 +484,7 @@ function keyboardMouseUp(num){
 	context.strokeStyle = '#000000';
 	context.lineWidth = '10px';
 	
-	rotorStateChange(2);
+	rotorStateChange(1);
 	// reset reflector
 	wipeOut(0,topY,refX,totalHeieght); 
 	drawReflector(reflectorNo);
@@ -560,26 +560,25 @@ function reflectorTagClick(pos){
 }
 
 
-function stateIncrease(no,delta){
-	rotorState[no] += delta;
-	linkRotors(no,'wipe');
-	linkRotors(no,'draw');
-	if(rotorState[no] == 26){
-		rotorState[no] = 0;
-		if(no > 0)stateIncrease(no-1,delta);
-	}
-}
-
 function rotorTagClick(no){
 	rotorState[no] = (rotorState[no] + 1)%26;
+	linkRotors(no,'wipe');
+	linkRotors(no,'draw');
 	wipeOut(tagX[0],0,tagX[2] - tagX[0] + tagWidth,tagY + tagHeight);
 	drawTags();
 	clearText();
 }
-function rotorStateChange(no){
-	rotorStateInc();
+function rotorStateChange(delta){
+	if(delta == 1)
+		rotorStateInc();
+	else 
+		rotorStateDec();
 	wipeOut(tagX[0],0,tagX[2] - tagX[0] + tagWidth,tagY + tagHeight);
 	drawTags();
+	for(var i =0 ; i < 3 ;i++){
+		linkRotors(i,'wipe');
+		linkRotors(i,'draw');
+	}
 }
 /*The following funcitons deal with drawing when an event occurs.*/
 
@@ -722,6 +721,25 @@ function rotorStateInc(){
 			rotorState[1] = 0;
 		}
 	}
+}
+
+function rotorStateDec(){
+	rotorState[2]--;
+	if(rotorState[2] < 0){
+		rotorState[2] = 25;
+		rotorState[1]--;
+		if(rotorState[1] < 0){
+			rotorState[0] = (rotorState[0]-1+26)%26;
+			rotorState[1] = 25;
+		}
+	}
+}
+
+function onBackspace(){
+	rotorStateChange(-1);
+	cypherText = cypherText.substr(0,cypherText.length-1);
+	plainText = plainText.substr(0,plainText.length-1);
+	updateText();
 }
 /**********************************************************************/
 

@@ -1,4 +1,5 @@
-window.buildinfo = document.querySelector("div.container-fluid pre").innerHTML;
+window.buildinfo = document.getElementById("buildinfo").innerHTML;
+//window.buildinfo = document.querySelector("div.container-fluid pre").innerHTML;
 
 const store_size = 10;
 const digits = 8;
