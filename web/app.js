@@ -34,6 +34,10 @@ app.use(function(req, res, next) {
     utility.initSession(req);
     next();
 });
+app.use(function(req,res,next){
+    res.header('Access-Control-Allow-Origin','*');
+    next();
+})
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 

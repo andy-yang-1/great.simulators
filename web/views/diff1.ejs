@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+
+<meta charset=utf-8>
+<meta name=viewport content="initial-scale=1, minimum-scale=1, width=device-width">
+<title>Difference Engine</title>
+<style>
+    .back {
+        background-repeat: repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        height: 100%;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .wrapper {
+        min-height: 100%;
+        margin-bottom: -70px;
+    }
+
+    .footer,
+    .push {
+        height: 70px;
+    }
+</style>
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+          integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+            integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
+            integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function ()
+        {
+            $('body').bootstrapMaterialDesign();
+            $('body').attr('style', 'background-image: url(../images/Babbage_Difference_Engine.jpg)')
+        });
+    </script>
+    <script src="../js/DELogic.js"></script>
+</head>
+
+
+
+
+
+
+<body class="back">
+
+    <div class="wrapper">
+
+
+        <nav class="navbar navbar-expand navbar-light" style="line-height: 0.5; background-color: #f5f5f5de">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/diff_engine/diff1">计算界面<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/diff_engine/diff2">图形界面</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/diff_engine/diff3">演示界面</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container" style="background: rgba(255, 255, 255, 0.85); padding-top : 30px">
+
+            <h1 style="text-align:center">差分机模拟器</h1>
+
+            <h3>输入初始七个寄存器内容和运算次数</h3>
+
+            <div class="row light-text">
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器1</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re0" min="0" max="10000000" />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器2</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re1" min="0" max="10000000" />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器3</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re2" min="0" max="10000000" />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器4</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re3" min="0" max="10000000" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row light-text">
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器5</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re4" min="0" max="10000000" />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器6</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re5" min="0" max="10000000" />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器7</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re6" min="0" max="10000000" />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>计算次数</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="times" min="0" max="100" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row light-text">
+                <div class='col-sm-5'></div>
+                <div class='col-sm-2'>
+                    <button type="button" id="startcal" value="SHITE" class="btn btn-raised btn-success" style="margin-top:20px">开始计算</button>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            <h3>运算结果</h3>
+
+            <div class="row light-text">
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器1</b></label>
+                        <input type='text' class="form-control" name="out0" disabled />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器2</b></label>
+                        <input type='text' class="form-control" name="out1" disabled />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器3</b></label>
+                        <input type='text' class="form-control" name="out2" disabled />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器4</b></label>
+                        <input type='text' class="form-control" name="out3" disabled />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row light-text">
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器5</b></label>
+                        <input type='text' class="form-control" name="out4" disabled />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器6</b></label>
+                        <input type='text' class="form-control" name="out5" disabled />
+                    </div>
+                </div>
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器7</b></label>
+                        <input type='text' class="form-control" name="out6" disabled />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row light-text">
+
+                <div class='col-sm-4'></div>
+
+                <div class='col-sm-2'>
+                    <button type="button" id="backstep" value="SHITE" class="btn btn-raised btn-warning" style="margin-top:20px">回退一步</button>
+                </div>
+
+                <div class='col-sm-2'>
+                    <button type="button" id="nextstep" value="SHITE" class="btn btn-raised btn-primary" style="margin-top:20px">再算一步</button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="push"></div>
+    </div>
+    <style>
+        .bottom {
+            padding: 16px;
+        }
+
+        .footer {
+            color: rgba(30, 27, 34, 0.85);
+            background: rgba(255, 255, 255, 0.7)
+        }
+    </style>
+    <footer class="footer text-center">
+        <br />
+        <p>
+            <span>Difference Engine Simulator © 2019 </span>
+            <span>
+                Powered by Ulita
+            </span>
+        </p>
+    </footer>
+
+</body>
+
+</html>

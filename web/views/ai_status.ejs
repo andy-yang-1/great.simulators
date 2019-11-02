@@ -65,56 +65,59 @@
 
 
   <% if (ai.name === "AnalyticalEngine") { %>
-    <center>
-        <div style="background: transparent; border: 1.5px solid transparent; width:1000px; border-radius:10px;">
+    <% if (ai.buildInfo) { %>
+        <center>
+            <div style="background: transparent; border: 1.5px solid transparent; width:1000px; border-radius:10px;">
+                
+                <br/><br/>
+                <div style="display:inline-block;">
+                <canvas id="myCanvas" width="700" height="496" style="border:2px solid #c3c3c3; border-radius:10px;">
+                    您的浏览器竟然不支持Canvas？换个浏览器吧！
+                </canvas>
+                </div>
+                
+                <div style="display:inline-block; margin-left:35px">
+                <div align="left" style="background: #fafafa; border:2px solid #3b3b3b; color:#000000;
+                    font-family: 'Courier New', Courier, monospace, helvetica, sans-serif; font-style: normal; font-weight: bold; font-size: 24px; 
+                    text-align:center; line-height: 52px; vertical-align:middle;
+                    border-radius:10px; width: 230px; height: 52px; display:inline-block; margin-bottom:10px" id="sentence"> 
+                </div>
+                <br>
+                <div align="left" style="overflow:auto; background: #fafafa; border:2px solid #3b3b3b; color:#000000;
+                    font-family: arial, helvetica, sans-serif; font-style: normal; font-weight: bold; font-size: 25px;
+                    padding-left: 5px; padding-right: 5px; border-radius:10px; width: 230px; height: 440px; display:inline-block" id="text"> 
+                    &nbspOutput:<br>
+                </div>
+                </div>
             
-            <br/><br/>
-            <div style="display:inline-block;">
-            <canvas id="myCanvas" width="700" height="496" style="border:2px solid #c3c3c3; border-radius:10px;">
-                您的浏览器竟然不支持Canvas？换个浏览器吧！
-            </canvas>
+                <br/><br/>
             </div>
-            
-            <div style="display:inline-block; margin-left:35px">
-            <div align="left" style="background: #fafafa; border:2px solid #3b3b3b; color:#000000;
-                font-family: 'Courier New', Courier, monospace, helvetica, sans-serif; font-style: normal; font-weight: bold; font-size: 24px; 
-                text-align:center; line-height: 52px; vertical-align:middle;
-                border-radius:10px; width: 230px; height: 52px; display:inline-block; margin-bottom:10px" id="sentence"> 
-            </div>
+        </center>
+
             <br>
-            <div align="left" style="overflow:auto; background: #fafafa; border:2px solid #3b3b3b; color:#000000;
-                font-family: arial, helvetica, sans-serif; font-style: normal; font-weight: bold; font-size: 25px;
-                padding-left: 5px; padding-right: 5px; border-radius:10px; width: 230px; height: 440px; display:inline-block" id="text"> 
-                &nbspOutput:<br>
+            
+        <center>
+            <div class="btn-group">
+                <button type="button" id='prev' class="btn btn-secondary" onclick="prevstep();"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+                <button type="button" id='play' class="btn btn-secondary" onclick="playit();"><span id='icon' class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                <button type="button" id='stop' class="btn btn-secondary" onclick="stopit();"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+                <button type="button" id='next' class="btn btn-secondary" onclick="nextstep();"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
             </div>
-            </div>
-        
-            <br/><br/>
-        </div>
-    </center>
-        <br>
-        
-    <center>
-        <div class="btn-group">
-            <button type="button" id='prev' class="btn btn-secondary" onclick="prevstep();"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
-            <button type="button" id='play' class="btn btn-secondary" onclick="playit();"><span id='icon' class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-            <button type="button" id='stop' class="btn btn-secondary" onclick="stopit();"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
-            <button type="button" id='next' class="btn btn-secondary" onclick="nextstep();"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
-        </div>
-    </center>
+        </center>
+    <% } %>
     
 
   <% } %>
 
 
+  <h2>Source Code</h2>
+  <pre class="source-code prettyprint lang-cpp"><%= ai.sourceCode %></pre>
 
   <% if (ai.buildInfo) { %>
     <h2>Build Infomation</h2>
-    <pre><%= ai.buildInfo %></pre>
+    <pre id = "buildinfo"><%= ai.buildInfo %></pre>
   <% } %>
 
-  <h2>Source Code</h2>
-  <pre class="source-code prettyprint lang-cpp"><%= ai.sourceCode %></pre>
 <% } %>
 
 <% include foot_script %>
