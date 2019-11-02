@@ -9,7 +9,7 @@ var dbi = {
 var cookieSecret = "Your Cookie Secret, Random String";
 module.exports = {
     websiteName: 'Simulators',
-    adminUsernames: [],
+    adminUsernames: ['root'],
     defaultPort: 3389,
     secret: cookieSecret,
     staticCDN: '',
