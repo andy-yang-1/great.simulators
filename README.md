@@ -1,8 +1,9 @@
-p2dv.in
+Simulators
 =======
 
-A system for game AI battle.
+A system for Simulators.
 
+- *great.simulators* is the version for Great Ideas in Computer Science 2019
 - *sjtu.cool* is the version for Programming Fall 2015 AI Project
 - *p2dv.in* is the version for Programming Fall 2014 AI Project
 
@@ -14,7 +15,7 @@ sudo dpkg-reconfigure tzdata
 
 curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
 sudo apt-get install build-essential git python-pip python3-pip python-dev nodejs screen mongodb-server vim nginx npm
-sudo pip install tornado pymongo subprocess32
+sudo pip3 install tornado pymongo subprocess32
 sudo pip3 install tabulate requests
 sudo useradd -m -s /bin/bash p2dv
 sudo passwd p2dv
@@ -22,6 +23,8 @@ sudo vim /etc/nginx/sites-enabled/default
 sudo service nginx reload
 
 # as p2dv at /home/p2dv
+su p2dv
+cd /home/p2dv
 git clone https://github.com/spectrometerHBH/sjtu.cool.git
 cp sjtu.cool/core_server/const.sample.py sjtu.cool/core_server/const.py
 cp sjtu.cool/web/settings.sample.js sjtu.cool/web/settings.js
@@ -36,27 +39,13 @@ mkdir log
 # start web service
 screen -S web
 cd sjtu.cool/web/
-npm install express connect-mongo method-override ejs mongoose body-parser
-node app.js | tee ~/log/web-$(date +%Y-%m-%d_%H_%M_%S).log
+npm install express connect-mongo method-override ejs mongoose body-parser # install nodejs packeages, maybe not complete
+node app.js 
 
 # start task dispatcher
 screen -S core_server
 cd sjtu.cool/core_server/
-./core_server.py | tee ~/log/core-$(date +%Y-%m-%d_%H_%M_%S).log
-
-# start rating updater
-screen -S rating
-cd sjtu.cool/core_server/
-./rating_updater.py init
-while true; do ./rating_updater.py; sleep 120; done
-
-# create mongodb index
-mongo p2dvin
-> db.ais.ensureIndex({status:1});
-> db.records.ensureIndex({status:1});
-> db.records.ensureIndex({contestId:1});
-> db.records.ensureIndex({contestId:1, status:1});
-> db.contests.ensureIndex({_id:1, 'ais.ai_id': 1});
+python3 core_server.py 
 ```
 
 ## Judge Server Setup Example
@@ -71,28 +60,20 @@ sudo useradd -m -s /bin/bash p2dv
 sudo passwd p2dv
 
 # as p2dv at /home/p2dv
+su p2dv
+cd /home/p2dv
 git clone https://github.com/spectrometerHBH/sjtu.cool.git
-git clone https://github.com/abcdabcd987/ACM-2015-AI-Server.git
 cp sjtu.cool/daemon/const.sample.py sjtu.cool/daemon/const.py
 vim sjtu.cool/daemon/const.py
 mkdir data
 mkdir data/ai
+mkdir ai
 mkdir log
 
 # either start daemon using screen
 screen -S daemon
 cd sjtu.cool/daemon/
-./p2dv.in.py | tee ~/log/daemon-$(date +%Y-%m-%d_%H_%M_%S).log
-
-# or run at startup
-vim /etc/rc.local
-```
-
-### `rc.local` Example
-
-```
-su p2dv -c '/home/p2dv/sjtu.cool/daemon/rename_as_ip.sh'
-su p2dv -c 'cd /home/p2dv/sjtu.cool/daemon/; nohup ./p2dv.in.py > ~/log/daemon-$(date +%Y-%m-%d_%H_%M_%S).log 2>&1 &'
+python3 p2dv.in.py 
 ```
 
 ## Nginx Configuration Example
@@ -133,3 +114,8 @@ server {
 - AI Judge by `@bywbilly`: [@abcdabcd987/ACM-2015-AI-Server](https://github.com/abcdabcd987/ACM-2015-AI-Server)
 - IPC library by `@abcdabcd987`: [@abcdabcd987/py-stdio-ipc](https://github.com/abcdabcd987/py-stdio-ipc)
 - Adaption from *p2dv.in* by `@abcdabcd987`
+
+## Credits of *great.simulators*
+
+- Simulator Demo by `@ulitaig`/`@yyNoBug`/`@MasterJH5574`/`@abclzr`/`@sparkmxy`
+- Adaption from *sjtu.cool* by `@spectrometerHBH`
