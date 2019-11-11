@@ -1,5 +1,4 @@
 window.buildinfo = document.getElementById("buildinfo").innerHTML;
-//window.buildinfo = document.querySelector("div.container-fluid pre").innerHTML;
 window.k = Number(buildinfo.match(/[\d]+\n/));
 processinfo = buildinfo.substr(buildinfo.search(/---SimulationProcess---/) + "---SimulationProcess---".length);
 window.blockwidth = 50;
@@ -14,22 +13,23 @@ window.stepnow = 0;
 window.autoplaying = false;
 window.playing = false;
 window.framesPerAction = 25;
+window.tapelog = [];
 
 function abs(x) {
-    return x < 0 ? -x : x;
+  return x < 0 ? -x : x;
 }
 
 dx = [];
 for (i = 0; i < framesPerAction; ++i)
-    dx[i] = 1 / (1 + Math.sqrt(Math.sqrt(abs((i / 12) - 1))));
+  dx[i] = 1 / (1 + Math.sqrt(Math.sqrt(abs((i / 12) - 1))));
 
 for (i = 1; i < framesPerAction; ++i)
-    dx[i] = dx[i] + dx[i - 1];
+  dx[i] = dx[i] + dx[i - 1];
 
 dxmax = dx[framesPerAction - 1];
 
 for (i = 0; i < framesPerAction; ++i)
-    dx[i] /= dxmax;
+  dx[i] /= dxmax;
 
 /*
 $(".container-fluid>.dl-horizontal").after('  <table width="auto" border="0" style="margin: auto">\n' +
@@ -82,56 +82,64 @@ const ctx3 = canvas3.getContext('2d');
 $("#canvas").height = startline + k * interline;
 
 function TMState(str, state, pointer) {
-    this.str = str;
-    this.state = state;
-    this.pointer = pointer;
+  this.str = str;
+  this.state = state;
+  this.pointer = pointer;
 }
 
 function drawstate(ss, snow) {
-    $("#State").html("State:".concat(ss));
-    $("#Step").html("Step:".concat(snow.toString()));
+  $("#State").html("State:".concat(ss));
+  $("#Step").html("Step:".concat(snow.toString()));
 }
 
-function drawtape(st, str, pt) {
-    var h1 = st;
-    var h2 = st + blockwidth;
-    var hmid = h1 + blockwidth/2;
-    var tmph = h1 + (blockwidth - innerblockwidth) / 2;
-    var tmpl = (leftmost + rightmost) / 2 - innerblockwidth / 2;
-    ctx.fillStyle = "#EBEBEB";
-    ctx.fillRect(leftmost, h1, rightmost - leftmost, blockwidth);
+function drawtape(st, str2, pt2) {
+  var position0 = str2.search("[|]");
+  if (position0 === -1) {
+    str = str2;
+    pt = pt2;
+  } else {
+    str = str2.slice(0, position0).concat(str2.slice(position0 + 1));
+    pt = pt2 + position0;
+  }
+  var h1 = st;
+  var h2 = st + blockwidth;
+  var hmid = h1 + blockwidth/2;
+  var tmph = h1 + (blockwidth - innerblockwidth) / 2;
+  var tmpl = (leftmost + rightmost) / 2 - innerblockwidth / 2;
+  ctx.fillStyle = "#EBEBEB";
+  ctx.fillRect(leftmost, h1, rightmost - leftmost, blockwidth);
 
-    var tl = tmpl - pt * blockwidth;
-    while (tl > 0) tl -= blockwidth;
-    while (tl < rightmost) {
-        ctx.fillStyle = "#B2DFEE";
-        ctx.fillRect(tl, tmph, innerblockwidth, innerblockwidth);
-        tl += blockwidth;
+  var tl = tmpl - pt * blockwidth;
+  while (tl > 0) tl -= blockwidth;
+  while (tl < rightmost) {
+    ctx.fillStyle = "#B2DFEE";
+    ctx.fillRect(tl, tmph, innerblockwidth, innerblockwidth);
+    tl += blockwidth;
+  }
+
+  tl = (leftmost + rightmost) / 2 - pt * blockwidth;
+  var len = str.length; var i = 0;
+  for (i = 0; i < len; ++i) {
+    if (str.charAt(i) !== '*') {
+      ctx.fillStyle = "#000000";
+      ctx.font = "20px Consolas";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(str.charAt(i).toString(), tl, hmid);
     }
+    tl = tl + blockwidth;
+  }
 
-    tl = (leftmost + rightmost) / 2 - pt * blockwidth;
-    var len = str.length; var i = 0;
-    for (i = 0; i < len; ++i) {
-        if (str.charAt(i) !== '*') {
-            ctx.fillStyle = "#000000";
-            ctx.font = "20px Consolas";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
-            ctx.fillText(str.charAt(i).toString(), tl, hmid);
-        }
-        tl = tl + blockwidth;
-    }
-
-    ctx.beginPath();
-    ctx.moveTo((leftmost + rightmost) / 2, h2 - 5);
-    ctx.lineTo((leftmost + rightmost) / 2 + 20, h2 + 30);
-    ctx.lineTo((leftmost + rightmost) / 2 - 20, h2 + 30);
-    ctx.closePath();
-    ctx.fillStyle = "#000000";
-    ctx.strokeStyle = "white";
-    ctx.lineWidth = 4;
-    ctx.fill();
-    ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo((leftmost + rightmost) / 2, h2 - 5);
+  ctx.lineTo((leftmost + rightmost) / 2 + 20, h2 + 30);
+  ctx.lineTo((leftmost + rightmost) / 2 - 20, h2 + 30);
+  ctx.closePath();
+  ctx.fillStyle = "#000000";
+  ctx.strokeStyle = "white";
+  ctx.lineWidth = 4;
+  ctx.fill();
+  ctx.stroke();
 }
 
 //process log
@@ -139,59 +147,59 @@ processlen = processinfo.length;
 tmp = 0;
 log = [];
 while (tmp < processlen) {
-    while ((processinfo.charAt(tmp) === ' ' || processinfo.charAt(tmp) === '\n' || processinfo.charAt(tmp) === ']') && (tmp < processlen)) tmp++;
-    if (tmp >= processlen) break;
-    if (processinfo.charAt(tmp) !== '[') {
-        str = "";
-        while (processinfo.charAt(tmp) !== ' ' && processinfo.charAt(tmp) !== '\n' && tmp < processlen) {
-            str = str + processinfo.charAt(tmp);
-            ++tmp;
-        }
-        log.push(str);
-        // console.log(str);
-    } else {
-        ++tmp;
-        ary = [];
-        while (tmp < processlen) {
-            str = "";
-            while (processinfo.charAt(tmp) !== ',' && processinfo.charAt(tmp) !== ' ' && processinfo.charAt(tmp) !== ']' && tmp < processlen) {
-                str = str + processinfo.charAt(tmp);
-                ++tmp;
-            }
-            ary.push(Number(str));
-            while ((processinfo.charAt(tmp) === ' ' || processinfo.charAt(tmp) === ',') && (tmp < processlen)) tmp++;
-            if (processinfo.charAt(tmp) === ']' || tmp >= processlen) break;
-        }
-        log.push(ary);
-        // console.log(ary);
+  while ((processinfo.charAt(tmp) === ' ' || processinfo.charAt(tmp) === '\n' || processinfo.charAt(tmp) === ']') && (tmp < processlen)) tmp++;
+  if (tmp >= processlen) break;
+  if (processinfo.charAt(tmp) !== '[') {
+    str = "";
+    while (processinfo.charAt(tmp) !== ' ' && processinfo.charAt(tmp) !== '\n' && tmp < processlen) {
+      str = str + processinfo.charAt(tmp);
+      ++tmp;
     }
+    log.push(str);
+    // console.log(str);
+  } else {
+    ++tmp;
+    ary = [];
+    while (tmp < processlen) {
+      str = "";
+      while (processinfo.charAt(tmp) !== ',' && processinfo.charAt(tmp) !== ' ' && processinfo.charAt(tmp) !== ']' && tmp < processlen) {
+        str = str + processinfo.charAt(tmp);
+        ++tmp;
+      }
+      ary.push(Number(str));
+      while ((processinfo.charAt(tmp) === ' ' || processinfo.charAt(tmp) === ',') && (tmp < processlen)) tmp++;
+      if (processinfo.charAt(tmp) === ']' || tmp >= processlen) break;
+    }
+    log.push(ary);
+    // console.log(ary);
+  }
 }
 
 window.SimulationLog = log;
 
 var stateary = []; var j, str, state, pointer, totstate = 0;
 for (i = 0; i < log.length; i += k + 2) {
-    str = [];
-    for (j = 0; j < k; ++j) str[j] = log[i + j];
-    state = log[i + k];
-    pointer = log[i + k + 1];
-    stateary[totstate] = new TMState(str, state, pointer);
-    ++totstate;
+  str = [];
+  for (j = 0; j < k; ++j) str[j] = log[i + j];
+  state = log[i + k];
+  pointer = log[i + k + 1];
+  stateary[totstate] = new TMState(str, state, pointer);
+  ++totstate;
 }
 
 endstate = totstate - 1;
 
 coor = [];
 for (i = 0; i < totstate; ++i)
-    coor[i] = i * 600 / (totstate - 1);
+  coor[i] = i * 600 / (totstate - 1);
 coor[0] += 1;
 coor[totstate - 1] -= 1;
 
 //init
 canvas.setAttribute("height", (startline+(k)*interline).toString());
 for (i = 0; i < k; ++i) {
-    drawtape(startline + interline * i, stateary[0].str[i], stateary[0].pointer[i]);
-    pnow[i] = stateary[0].pointer[i];
+  drawtape(startline + interline * i, stateary[0].str[i], stateary[0].pointer[i]);
+  pnow[i] = stateary[0].pointer[i];
 }
 drawstate(stateary[0].state, 0);
 setProcess(0);
@@ -200,97 +208,97 @@ stepnow = 0;
 window.canvaslinewidth = 1;
 
 for (i = 0; i < totstate; ++i) {
-    ctx3.moveTo(coor[i], 0);
-    ctx3.lineTo(coor[i], canvas3.height);
-    ctx3.strokeStyle = "black";
-    ctx3.lineWidth = canvaslinewidth;
-    ctx3.stroke();
+  ctx3.moveTo(coor[i], 0);
+  ctx3.lineTo(coor[i], canvas3.height);
+  ctx3.strokeStyle = "black";
+  ctx3.lineWidth = canvaslinewidth;
+  ctx3.stroke();
 }
 
 function settostep(kth) {
-    playing = false;
-    autoplaying = false;
-    $('#play').attr('onclick', 'autoplay();');
-    $('#icon').attr('class', 'glyphicon glyphicon-play');
-    if (kth < 0 || kth >= totstate) {
-        alert("Invalid Step!");
-        return;
-    }
-    stepnow = kth;
-    for (j = 0; j < k; ++j) {
-        pnow[j] = stateary[kth].pointer[j];
-        drawtape(startline + j * interline, stateary[kth].str[j], pnow[j]);
-    }
-    drawstate(stateary[kth].state, kth);
-    setProcess(kth);
+  playing = false;
+  autoplaying = false;
+  $('#play').attr('onclick', 'autoplay();');
+  $('#icon').attr('class', 'glyphicon glyphicon-play');
+  if (kth < 0 || kth >= totstate) {
+    alert("Invalid Step!");
+    return;
+  }
+  stepnow = kth;
+  for (j = 0; j < k; ++j) {
+    pnow[j] = stateary[kth].pointer[j];
+    drawtape(startline + j * interline, stateary[kth].str[j], pnow[j]);
+  }
+  drawstate(stateary[kth].state, kth);
+  setProcess(kth);
 }
 
 function endAnimation() {
-    pauseit();
+  pauseit();
 }
 
 function nextstepAnimation() {
-    if (playing) return;
-    var remainframe;
-    function step() {
-        if (playing === false) return;
-        if (remainframe < 25) {
-            for (j = 0; j < k; ++j) {
-                if(stateary[stepnow - 1].pointer[j] === stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j];
-                else if (stateary[stepnow - 1].pointer[j] < stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j] + dx[remainframe];
-                else if (stateary[stepnow - 1].pointer[j] > stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j] - dx[remainframe];
-                drawtape(startline + j * interline, stateary[stepnow].str[j], pnow[j]);
-            }
-            setProcess(stepnow - 1 + dx[remainframe]);
-            remainframe++;
-            requestAnimationFrame(step);
-            return;
-        }
-        for (j = 0; j < k; ++j) {
-            pnow[j] = stateary[stepnow].pointer[j];
-            drawtape(startline + j * interline, stateary[stepnow].str[j], pnow[j]);
-        }
-        setProcess(stepnow);
-        playing = false;
-        if (autoplaying)
-            setTimeout(function () {if (autoplaying) nextstepAnimation();}, 500);
+  if (playing) return;
+  var remainframe;
+  function step() {
+    if (playing === false) return;
+    if (remainframe < 25) {
+      for (j = 0; j < k; ++j) {
+        if(stateary[stepnow - 1].pointer[j] === stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j];
+        else if (stateary[stepnow - 1].pointer[j] < stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j] + dx[remainframe];
+        else if (stateary[stepnow - 1].pointer[j] > stateary[stepnow].pointer[j]) pnow[j] = stateary[stepnow - 1].pointer[j] - dx[remainframe];
+        drawtape(startline + j * interline, stateary[stepnow].str[j], pnow[j]);
+      }
+      setProcess(stepnow - 1 + dx[remainframe]);
+      remainframe++;
+      requestAnimationFrame(step);
+      return;
     }
-    if (stepnow >= endstate) {
-        endAnimation();
-        return;
+    for (j = 0; j < k; ++j) {
+      pnow[j] = stateary[stepnow].pointer[j];
+      drawtape(startline + j * interline, stateary[stepnow].str[j], pnow[j]);
     }
-    ++stepnow;
-    drawstate(stateary[stepnow].state, stepnow);
-    remainframe = 0;
-    playing = true;
-    requestAnimationFrame(step);
+    setProcess(stepnow);
+    playing = false;
+    if (autoplaying)
+      setTimeout(function () {if (autoplaying) nextstepAnimation();}, 500);
+  }
+  if (stepnow >= endstate) {
+    endAnimation();
+    return;
+  }
+  ++stepnow;
+  drawstate(stateary[stepnow].state, stepnow);
+  remainframe = 0;
+  playing = true;
+  requestAnimationFrame(step);
 }
 
 function autoplay() {
-    autoplaying = true;
-    $('#play').attr('onclick', 'pauseit();');
-    $('#icon').attr('class', 'glyphicon glyphicon-pause');
-    nextstepAnimation();
+  autoplaying = true;
+  $('#play').attr('onclick', 'pauseit();');
+  $('#icon').attr('class', 'glyphicon glyphicon-pause');
+  nextstepAnimation();
 }
 
 function pauseit() {
-    autoplaying = false;
-    $('#play').attr('onclick', 'autoplay();');
-    $('#icon').attr('class', 'glyphicon glyphicon-play');
+  autoplaying = false;
+  $('#play').attr('onclick', 'autoplay();');
+  $('#icon').attr('class', 'glyphicon glyphicon-play');
 }
 
 
 //slider
 
 function setProcess(kth) {
-    $('.progress-bar').css("width", (kth * 100 / (totstate - 1)).toString().concat("%"));
+  $('.progress-bar').css("width", (kth * 100 / (totstate - 1)).toString().concat("%"));
 }
 
 sliderele = document.getElementById('slider');
 
 function clickslider(event) {
-    var e = event || window.event;
-    x = (e.screenX - sliderele.offsetLeft) / sliderele.clientWidth * (totstate - 1);
-    if (x - Math.floor(x) < 0.5) settostep(Math.floor(x));
-    else settostep(Math.floor(x) + 1);
+  var e = event || window.event;
+  x = (e.screenX - sliderele.offsetLeft) / sliderele.clientWidth * (totstate - 1);
+  if (x - Math.floor(x) < 0.5) settostep(Math.floor(x));
+  else settostep(Math.floor(x) + 1);
 }

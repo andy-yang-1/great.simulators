@@ -43,7 +43,7 @@ while now_line < len(lines):
         now_line = now_line + 1
         continue
     now_line = now_line + 1
-    while not lines[now_line] == "\n":
+    while now_line < len(lines) and not lines[now_line] == "\n":
         now_tape, write_tape, movement, trans_state = lines[now_line].strip().split(";")
         now_tape = now_tape.strip().split()
         write_tape = write_tape.strip().split()
@@ -83,7 +83,7 @@ class Tapes:
 
     def show(self):
         for i in range(k):
-            print("".join(list(reversed(self.n_tapes[i][1:])) + self.p_tapes[i]))
+            print("".join(list(reversed(self.n_tapes[i][1:])) + list("|") + self.p_tapes[i]))
 
 print('---SimulationProcess---')
 
