@@ -16,7 +16,7 @@
 </dl>
 
 <% if (ai.user === user.name || settings.adminUsernames.indexOf(user.name) > -1) { %>
-  <% if (ai.name === "TuringMachine") { %>
+  <% if (ai.name === "TuringMachine" && ai.status === 'Available') { %>
       <table width="auto" border="0" style="margin: auto">
           <thead>
           <tr>
@@ -125,7 +125,7 @@
 <script src="<%= settings.staticCDN %>/js/c3.min.js"></script>
 <script src="<%= settings.staticCDN %>/js/rating.js?20141217"></script>
 <script src="<%= settings.staticCDN %>/google-code-prettify/prettify.js"></script>
-<% if (ai.name === "TuringMachine") { %>
+<% if (ai.name === "TuringMachine" && ai.status === 'Available') { %>
 <script src="<%= settings.staticCDN %>/js/TuringMachineAnime.js"></script>
 <% } %>
 <% if (ai.name === "AnalyticalEngine") { %>
