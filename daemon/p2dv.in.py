@@ -112,13 +112,13 @@ class Daemon:
         p = Prepare(ai).Run()
 
         ID = str(ai['_id'])
-        if p['status'] == 'failure':
-            status = 'Unavailable'
+        if p['status'] == 'failure' or p['status'] == 'timeout':
+            status = 'Unavailable' if p['status'] == 'failure' else 'Timeout'
             info = p['error']
         else:
             status = 'Available'
             info = p['info']
-            
+
         self._uploadAI(ID, status, info, path.join(const.AI_SAVE_DIRECTORY, 'ai_' + ID))
         print('      Done!')
 
