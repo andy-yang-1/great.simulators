@@ -24,7 +24,7 @@ class Prepare:
         child = subprocess32.Popen(cflags, stdout=subprocess32.PIPE, stderr=subprocess32.PIPE)
         try:
             self.compile_timeout = False
-            self.compile_stdout, self.compile_stderr = child.communicate(timeout=5)
+            self.compile_stdout, self.compile_stderr = child.communicate(timeout=10)
         except subprocess32.TimeoutExpired:
             self.compile_timeout = True
             self.compile_stdout = self.compile_stderr = "Timeout"
@@ -59,6 +59,7 @@ class Prepare:
             if not self.compile_timeout:
                 result['error'] = 'Simulation Failed. STDERR:\n' + self.compile_stderr
             else:
+                result['status'] = 'timeout'
                 result['error'] = 'Simulation Timeout\n'
         else:
             result['status'] = 'success'
