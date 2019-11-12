@@ -27,7 +27,7 @@ class Prepare:
             self.compile_stdout, self.compile_stderr = child.communicate(timeout=5)
         except subprocess32.TimeoutExpired:
             self.compile_timeout = True
-            self.compile_stderr = "Timeout"
+            self.compile_stdout = self.compile_stderr = "Timeout"
             with open(target, 'w', newline='\n') as f:
                 f.write(self.compile_stdout)
             return False
