@@ -19,7 +19,7 @@
   <tr>
     <td><%= ai.user %> (<%= ai.idOfUser %>)</td>
     <td><%= ai.name %></td>
-    <% if (ai.status === 'Unavailable')  { %>
+    <% if (ai.status === 'Unavailable' || ai.status === 'Timeout')  { %>
       <td><span class="label label-danger"><%= ai.status %></span></td>
     <% } else if (ai.status === 'Available') { %>
       <td><span class="label label-success"><%= ai.status %></span></td>
