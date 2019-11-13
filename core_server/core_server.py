@@ -142,7 +142,7 @@ class UploadHandler(tornado.web.RequestHandler):
 
                 self.write({'status': 'success'})
                 return
-            elif status == 'Unavailable':
+            elif status == 'Unavailable' or status == 'Timeout':
                 db.ais.update({'_id':doc['_id']}, { '$set': {
                     'status': status,
                     'buildInfo': info
