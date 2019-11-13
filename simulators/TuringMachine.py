@@ -118,6 +118,7 @@ while not now_state in halt_state:
     now_step += 1
     if now_step > 200:
         print(' Exceeding 200 Steps!', headers)
+        break
     else:
         print(now_state, headers)
 
