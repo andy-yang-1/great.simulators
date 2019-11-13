@@ -93,6 +93,7 @@ headers = [0 for i in range(k)]
 tapes.show()
 print(now_state, headers)
 
+now_step = 0
 while not now_state in halt_state:
     now_tape = " ".join([tapes.read(i, headers[i]) for i in range(k)])
     if not trans.__contains__((now_state, now_tape)):
@@ -114,7 +115,11 @@ while not now_state in halt_state:
         headers[i] = headers[i] + delta
 
     tapes.show()
-    print(now_state, headers)
+    now_step += 1
+    if now_step > 200:
+        print(' Exceeding 200 Steps!', headers)
+    else:
+        print(now_state, headers)
 
 '''
 example TM Language source file
