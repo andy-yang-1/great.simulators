@@ -5,7 +5,7 @@ import json
 def check(k, states, start_state, halt_state):
     if k < 2 or \
         not start_state in states or \
-        not halt_state in states:
+        not halt_state.issubset(states):
         exit(-1)
 
 
@@ -21,7 +21,7 @@ with open(sys.argv[1], "r") as f_source:
 k = int(lines[0].strip())
 states = set(lines[1].strip().split(' '))
 start_state = lines[2].strip()
-halt_state = lines[3].strip()
+halt_state = set(lines[3].strip().split(' '))
 input_text = lines[4].strip().split()
 print(k)
 print(states)
@@ -39,7 +39,7 @@ while now_line < len(lines):
     ### check
     if not now_state in states:
         exit(-1)
-    if now_state == halt_state:
+    if now_state in halt_state:
         now_line = now_line + 1
         continue
     now_line = now_line + 1
@@ -93,7 +93,7 @@ headers = [0 for i in range(k)]
 tapes.show()
 print(now_state, headers)
 
-while not now_state == halt_state:
+while not now_state in halt_state:
     now_tape = " ".join([tapes.read(i, headers[i]) for i in range(k)])
     if not trans.__contains__((now_state, now_tape)):
         exit(-1) 
