@@ -3,7 +3,7 @@ import sys
 import json
 
 def check(k, states, start_state, halt_state):
-    if k < 2 or \
+    if k < 1 or \
         not start_state in states or \
         not halt_state.issubset(states):
         exit(-1)
@@ -53,7 +53,8 @@ while now_line < len(lines):
         ### check
         if not trans_state in states or\
             not len(now_tape) == k or\
-            not len(write_tape) == k - 1 or\
+            k > 1 and not len(write_tape) == k - 1 or\
+            k == 1 and not len(write_tape) == 1 or\
             not len(movement) == k:
             exit(-1)
         trans[(now_state, " ".join(now_tape))] = (trans_state, write_tape, movement)
@@ -76,7 +77,7 @@ class Tapes:
         if pos >= len(tape):
             tape.append('*')
         return tape[pos]
-    
+
     def write(self, i, pos, symbol):
         pos, tape = (pos, self.p_tapes[i]) if pos >= 0 else (-pos, self.n_tapes[i])
         tape[pos] = symbol
@@ -97,12 +98,15 @@ now_step = 0
 while not now_state in halt_state:
     now_tape = " ".join([tapes.read(i, headers[i]) for i in range(k)])
     if not trans.__contains__((now_state, now_tape)):
-        exit(-1) 
+        exit(-1)
     trans_state, write_tape, movement = trans[(now_state, now_tape)]
 
     now_state = trans_state
-    for i in range(1, k):
-        tapes.write(i, headers[i], write_tape[i-1])
+    if k == 1:
+        tapes.write(0, headers[0], write_tape[0])
+    else:
+        for i in range(1, k):
+            tapes.write(i, headers[i], write_tape[i-1])
     for i in range(k):
         if movement[i] == '<':
             delta = -1

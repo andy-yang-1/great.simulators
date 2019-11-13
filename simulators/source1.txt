@@ -1,0 +1,32 @@
+2
+qCopy qRevert qCheck qAccept qWrong
+qCopy
+qAccept
+1 0 0 1
+
+qCopy
+0 0 ; 0 ; > > ; qCopy
+0 1 ; 0 ; > > ; qCopy
+0 * ; 0 ; > > ; qCopy
+1 0 ; 1 ; > > ; qCopy
+1 1 ; 1 ; > > ; qCopy
+1 * ; 1 ; > > ; qCopy
+* 0 ; * ; - < ; qRevert
+* 1 ; * ; - < ; qRevert
+* * ; * ; - < ; qRevert
+
+qRevert
+* 0 ; 0 ; - < ; qRevert
+* 1 ; 1 ; - < ; qRevert
+* * ; * ; < > ; qCheck
+
+qCheck
+0 0 ; 0 ; < > ; qCheck
+1 1 ; 1 ; < > ; qCheck
+* * ; * ; - - ; qAccept
+0 1 ; 1 ; - - ; qWrong
+1 0 ; 0 ; - - ; qWrong
+0 * ; * ; - - ; qWrong
+* 0 ; 0 ; - - ; qWrong
+1 * ; * ; - - ; qWrong
+* 1 ; 1 ; - - ; qWrong
