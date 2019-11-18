@@ -86,59 +86,65 @@
 
             <h1 style="text-align:center">差分机模拟器</h1>
 
-            <h3>输入初始七个寄存器内容和运算次数</h3>
+            <h3>输入初始八个寄存器内容和运算次数</h3>
 
             <div class="row light-text">
-                <div class='col-sm-3'>
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>寄存器1</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="re0" min="0" max="10000000" />
+                        <input type='number' step='1' value='0' class="form-control" name="re0" min="0" max="99999999999999999999999999999999" />
                     </div>
                 </div>
-                <div class='col-sm-3'>
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>寄存器2</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="re1" min="0" max="10000000" />
+                        <input type='number' step='1' value='0' class="form-control" name="re1" min="0" max="99999999999999999999999999999999" />
                     </div>
                 </div>
-                <div class='col-sm-3'>
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>寄存器3</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="re2" min="0" max="10000000" />
+                        <input type='number' step='1' value='0' class="form-control" name="re2" min="0" max="99999999999999999999999999999999" />
                     </div>
                 </div>
-                <div class='col-sm-3'>
+            </div>
+            <div class="row light-text">
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>寄存器4</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="re3" min="0" max="10000000" />
+                        <input type='number' step='1' value='0' class="form-control" name="re3" min="0" max="99999999999999999999999999999999" />
                     </div>
                 </div>
-
-            </div>
-
-            <div class="row light-text">
-                <div class='col-sm-3'>
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>寄存器5</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="re4" min="0" max="10000000" />
+                        <input type='number' step='1' value='0' class="form-control" name="re4" min="0" max="99999999999999999999999999999999" />
                     </div>
                 </div>
-                <div class='col-sm-3'>
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>寄存器6</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="re5" min="0" max="10000000" />
+                        <input type='number' step='1' value='0' class="form-control" name="re5" min="0" max="99999999999999999999999999999999" />
                     </div>
                 </div>
-                <div class='col-sm-3'>
+            </div>
+            <div class="row light-text">
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>寄存器7</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="re6" min="0" max="10000000" />
+                        <input type='number' step='1' value='0' class="form-control" name="re6" min="0" max="99999999999999999999999999999999" />
                     </div>
                 </div>
-                <div class='col-sm-3'>
+                <div class='col-sm-4'>
+                    <div class="form-group">
+                        <label><b>寄存器8</b></label>
+                        <input type='number' step='1' value='0' class="form-control" name="re7" min="0" max="99999999999999999999999999999999" />
+                    </div>
+                </div>
+                <div class='col-sm-4'>
                     <div class="form-group">
                         <label><b>计算次数</b></label>
-                        <input type='number' step='1' value='0' class="form-control" name="times" min="0" max="100" />
+                        <input type='number' step='1' value='0' class="form-control" name="times" min="0" max="10000000" />
                     </div>
                 </div>
             </div>
@@ -202,7 +208,12 @@
                         <input type='text' class="form-control" name="out6" disabled />
                     </div>
                 </div>
-
+                <div class='col-sm-3'>
+                    <div class="form-group">
+                        <label><b>寄存器8</b></label>
+                        <input type='text' class="form-control" name="out7" disabled />
+                    </div>
+                </div>
             </div>
 
             <div class="row light-text">
