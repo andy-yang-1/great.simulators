@@ -1,0 +1,35 @@
+1
+q_even_0 q_even_1 q_even_2 q_odd_0 q_odd_1 q_odd_2 DividedBy3 notDividedBy3
+q_even_0
+DividedBy3 notDividedBy3
+1 0 1 0 1
+
+q_even_0
+0 ; 0 ; > ; q_odd_0
+1 ; 1 ; > ; q_odd_1
+* ; * ; - ; DividedBy3
+
+q_even_1
+0 ; 0 ; > ; q_odd_1
+1 ; 1 ; > ; q_odd_2
+* ; * ; - ; notDividedBy3
+
+q_even_2
+0 ; 0 ; > ; q_odd_2
+1 ; 1 ; > ; q_odd_0
+* ; * ; - ; notDividedBy3
+
+q_odd_0
+0 ; 0 ; > ; q_even_0
+1 ; 1 ; > ; q_even_2
+* ; * ; - ; DividedBy3
+
+q_odd_1
+0 ; 0 ; > ; q_even_1
+1 ; 1 ; > ; q_even_0
+* ; * ; - ; notDividedBy3
+
+q_odd_2
+0 ; 0 ; > ; q_even_2
+1 ; 1 ; > ; q_even_1
+* ; * ; - ; notDividedBy3

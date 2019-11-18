@@ -11,9 +11,9 @@ qMoveRight
 1 0 ; 0 ; > - ; qAdd1_Move
 1 1 ; 1 ; > - ; qAdd1_Move
 1 * ; * ; > - ; qAdd1_Move
-* 0 ; 0 ; - - ; qAdd1_Move
-* 1 ; 1 ; - - ; qAdd1_Move
-* * ; * ; - - ; qAdd1_Move
+* 0 ; 0 ; - - ; qEnd
+* 1 ; 1 ; - - ; qEnd
+* * ; * ; - - ; qEnd
 
 qAdd1_Move
 0 0 ; 0 ; - > ; qAdd1_Move
