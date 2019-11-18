@@ -1,0 +1,16 @@
+2
+qCopy qFinish
+qCopy
+qFinish
+1 0 1 0 0 0 0 1 1
+
+qCopy
+0 0 ; 0 ; > > ; qCopy
+0 1 ; 0 ; > > ; qCopy
+0 * ; 0 ; > > ; qCopy
+1 0 ; 1 ; > > ; qCopy
+1 1 ; 1 ; > > ; qCopy
+1 * ; 1 ; > > ; qCopy
+* 0 ; * ; - - ; qFinish
+* 1 ; * ; - - ; qFinish
+* * ; * ; - - ; qFinish

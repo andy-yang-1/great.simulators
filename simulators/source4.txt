@@ -1,0 +1,32 @@
+2
+qCopy qRevert qCheck Palindromic notPalindromic
+qCopy
+Palindromic notPalindromic
+1 0 0 1 0 0 1
+
+qCopy
+0 0 ; 0 ; > > ; qCopy
+0 1 ; 0 ; > > ; qCopy
+0 * ; 0 ; > > ; qCopy
+1 0 ; 1 ; > > ; qCopy
+1 1 ; 1 ; > > ; qCopy
+1 * ; 1 ; > > ; qCopy
+* 0 ; * ; - < ; qRevert
+* 1 ; * ; - < ; qRevert
+* * ; * ; - < ; qRevert
+
+qRevert
+* 0 ; 0 ; - < ; qRevert
+* 1 ; 1 ; - < ; qRevert
+* * ; * ; < > ; qCheck
+
+qCheck
+0 0 ; 0 ; < > ; qCheck
+1 1 ; 1 ; < > ; qCheck
+* * ; * ; - - ; Palindromic
+0 1 ; 1 ; - - ; notPalindromic
+1 0 ; 0 ; - - ; notPalindromic
+0 * ; * ; - - ; notPalindromic
+* 0 ; 0 ; - - ; notPalindromic
+1 * ; * ; - - ; notPalindromic
+* 1 ; 1 ; - - ; notPalindromic

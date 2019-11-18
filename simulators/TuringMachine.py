@@ -98,7 +98,8 @@ now_step = 0
 while not now_state in halt_state:
     now_tape = " ".join([tapes.read(i, headers[i]) for i in range(k)])
     if not trans.__contains__((now_state, now_tape)):
-        exit(-1)
+        print('{Error}TransitionMiss!', headers)
+        break
     trans_state, write_tape, movement = trans[(now_state, now_tape)]
 
     now_state = trans_state
@@ -121,7 +122,7 @@ while not now_state in halt_state:
     tapes.show()
     now_step += 1
     if now_step > 200:
-        print(' Exceeding 200 Steps!', headers)
+        print('{Error}Exceeding200Steps!', headers)
         break
     else:
         print(now_state, headers)

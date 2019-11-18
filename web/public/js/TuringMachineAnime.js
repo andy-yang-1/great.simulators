@@ -74,10 +74,10 @@ $(".container-fluid>.dl-horizontal").after('  <table width="auto" border="0" sty
     '  </table>\n');
 */
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const canvas3 = document.getElementById('canvas3');
-const ctx3 = canvas3.getContext('2d');
+canvas = document.getElementById('canvas');
+ctx = canvas.getContext('2d');
+canvas3 = document.getElementById('canvas3');
+ctx3 = canvas3.getContext('2d');
 
 $("#canvas").height = startline + k * interline;
 
