@@ -64,7 +64,8 @@ class Daemon:
                     files = None
                 r = requests.post(const.CORE_SERVER + '/upload', data=data, files=files, timeout=const.REQUESTS_TIMEOUT)
                 return r.json()
-            except:
+            except Exception as e:
+                print(str(e))
                 print('_uploadAI fail.')
                 time.sleep(random.random())
 
