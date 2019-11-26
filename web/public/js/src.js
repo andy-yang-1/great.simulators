@@ -253,7 +253,7 @@ function linkRotors(i,flag){
 	var x1 = topX[i] + rotorWidth;
 	var x2 = topX[i] + rotorXlen;
 	for(var j=0;j<26;j++){
-		var k = right2left[i][(j + rotorState[i])%26];   // k <=> j
+		var k =(right2left[i][(j + rotorState[i])%26] - rotorState[i] + 26 )%26;   // k <=> j
 		drawLine(x1,rotor[k] + rotorHeight/2,x2,rotor[j] + rotorHeight/2);
 	}
 }
